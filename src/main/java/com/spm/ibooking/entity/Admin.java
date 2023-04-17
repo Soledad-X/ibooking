@@ -1,0 +1,35 @@
+package com.spm.ibooking.entity;
+
+import java.sql.Timestamp;
+
+import javax.persistence.*;
+
+import lombok.*;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "admins")
+public class Admin {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String pasword;
+
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
+    @Column(name = "phone", unique = true, nullable = false)
+    private String phone;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+}
