@@ -1,0 +1,1423 @@
+openapi: 3.0.3
+info:
+  title: IBooking API
+  description: 自习室座位预约系统(IBooking)调用端接口
+  contact:
+    name: Penglei Mao
+    email: penglei.x.mao@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://10.177.44.64:8080/api/
+paths:
+  /admin_login:
+    post:
+      tags:
+        - Authentication
+      summary: Admin login to the IBooking
+      requestBody:
+        $ref: '#/components/requestBodies/LoginRequst'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessLogin'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /login:
+    post:
+      tags:
+        - Authentication
+      summary: User login to the IBooking
+      requestBody:
+        $ref: '#/components/requestBodies/LoginRequst'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessLogin'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterForm'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /campuses:
+    get:
+      tags:
+        - Campus
+      summary: Get an array of all campuses
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      campuses:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Campus'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'  
+    post:   
+      tags:
+        - Campus
+      summary: Create a new campus info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campus'
+      responses:
+        '201':
+          description: Created
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'       
+  /campuses/{campus_name}:
+    get:
+      tags:
+        - Campus
+      summary: Get the info of the specified campus
+      parameters:
+        - name: campus_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'              
+                  - type: object
+                    properties:
+                      campus:
+                        $ref: '#/components/schemas/Campus'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Campus
+      summary: Update the info of the specified campus
+      parameters:
+        - name: campus_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campus'
+      responses:
+        '200':
+          description: OK
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+    delete:
+      tags:
+        - Campus
+      summary: Delete the info of the specified campus
+      parameters:
+        - name: campus_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /campuses/{campus_name}/buildings:
+    get:
+      tags:
+        - Campus
+      summary: Get an array of all buildings on the specified campus
+      parameters:
+        - name: campus_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'              
+                  - type: object
+                    properties:
+                      buildings:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Building'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'    
+  /buildings:
+    get:
+      tags:
+        - Building
+      summary: Get an array of all buildings
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'                    
+                  - type: object
+                    properties:
+                      buildings:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Building'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'  
+    post:   
+      tags:
+        - Building
+      summary: Create a new building info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Building'
+      responses:
+        '201':
+          description: Created
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'            
+  /buildings/{building_name}:
+    get:
+      tags:
+        - Building
+      summary: Get the info of the specified building
+      parameters:
+        - name: building_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'              
+                  - type: object
+                    properties:
+                      building:
+                        $ref: '#/components/schemas/Building'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Building
+      summary: Update the info of the specified building
+      parameters:
+        - name: building_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Building'
+      responses:
+        '200':
+          description: OK
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+    delete:
+      tags:
+        - Building
+      summary: Delete the info of the specified building
+      parameters:
+        - name: building_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /buildings/{building_name}/campus:
+    get:
+      tags:
+        - Building
+      summary: Get the campus of the specified building
+      parameters:
+        - name: building_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      campus:
+                        $ref: '#/components/schemas/Campus'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'                
+  /buildings/{building_name}/rooms:
+    get:
+      tags:
+        - Building
+      summary: Get an array of all rooms on the specified building
+      parameters:
+        - name: building_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      rooms:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Room'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'    
+  /rooms:
+    get:
+      tags:
+        - Room
+      summary: Get an array of all rooms
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'                    
+                  - type: object
+                    properties:
+                      rooms:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Room'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'  
+    post:   
+      tags:
+        - Room
+      summary: Create a new room info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+      responses:
+        '201':
+          description: Created
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'            
+  /rooms/{room_name}:
+    get:
+      tags:
+        - Room
+      summary: Get the info of the specified room
+      parameters:
+        - name: room_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'              
+                  - type: object
+                    properties:
+                      rooms:
+                        $ref: '#/components/schemas/Room'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Room
+      summary: Update the info of the specified room
+      parameters:
+        - name: room_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+      responses:
+        '200':
+          description: OK
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'    
+    delete:
+      tags:
+        - Room
+      summary: Delete the info of the specified room
+      parameters:
+        - name: room_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /rooms/{room_name}/building:
+    get:
+      tags:
+        - Room
+      summary: Get the building of the specified room
+      parameters:
+        - name: room_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      building:
+                        $ref: '#/components/schemas/Building'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'           
+  /rooms/{room_name}/seats:
+    get:
+      tags:
+        - Room
+      summary: Get all seats of the specified room
+      parameters:
+        - name: room_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      seats:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Seat'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /rooms/{room_name}/reservations:
+    get:
+      tags:
+        - Room
+      summary: Get an array of all reservation on the specified room
+      description: 获取在指定时间段内某房间(room_name)的所有座位的预约（默认为当前时段）
+      parameters:
+        - name: room_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_time:
+                  type: string
+                  format: date-time
+                end_time:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      reservations:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Reservation'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500' 
+  /seats:
+    get:
+      tags:
+        - Seat
+      summary: Get an array of all seats
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'                    
+                  - type: object
+                    properties:
+                      seats:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Seat'   
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'  
+    post:   
+      tags:
+        - Seat
+      summary: Create a new seat info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Seat'
+      responses:
+        '201':
+          description: Created
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'            
+  /seats/{seat_id}:
+    get:
+      tags:
+        - Seat
+      summary: Get the info of the specified seat
+      parameters:
+        - name: seat_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'              
+                  - type: object
+                    properties:
+                      seat:
+                        $ref: '#/components/schemas/Seat'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Seat
+      summary: Update the info of the specified seat
+      parameters:
+        - name: seat_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Seat'
+      responses:
+        '200':
+          description: OK
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - Seat
+      summary: Delete the info of the specified seat
+      parameters:
+        - name: seat_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /seats/{seat_id}/room:
+    get:
+      tags:
+        - Seat
+      summary: Get the room of the specified seat
+      parameters:
+        - name: seat_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      room:
+                        $ref: '#/components/schemas/Room'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /seats/{seat_id}/reservations:
+    get:
+      tags:
+        - Seat
+      summary: get an array of all reservations on the specified seat
+      parameters:
+        - name: seat_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_time:
+                  type: string
+                  format: date-time
+                end_time:
+                  type: string
+                  format: date-time                  
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      reservations:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Reservation'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'            
+  /reservations:
+    get:
+      tags:
+        - Reservation
+      summary: Get an array of all reservations
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      reservations:
+                        type: array
+                        items:
+                            $ref: '#/components/schemas/Reservation'
+    post:
+      tags:
+        - Reservation
+      summary: Create a new reservation info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'          
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /reservations/{reservation_id}:
+    get:
+      tags:
+        - Reservation
+      summary: Get the info of the specified reservation
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64            
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'              
+                  - type: object
+                    properties:
+                      reservation:
+                        $ref: '#/components/schemas/Reservation'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Reservation
+      summary: Update the info of the specified reservation
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64            
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+      responses:
+        '200':
+          description: OK
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - Reservation
+      summary: Delete the info of the specified reservation
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'        
+  /reservations/{reservation_id}/user:
+    get:
+      tags:
+        - Reservation
+      summary: Get the user of the specified reservation
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /reservations/{reservation_id}/seat:
+    get:
+      tags:
+        - Reservation
+      summary: Get the seat of the specified reservation
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      seat:
+                        $ref: '#/components/schemas/Seat'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /signIns:
+    get:
+      tags:
+        - SignIn
+      summary: Get an array of all signIns
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      signIns:
+                        type: array
+                        items:
+                            $ref: '#/components/schemas/SignIn'
+    post:
+      tags:
+        - SignIn
+      summary: Create a new signIn info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignIn'          
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'          
+  /signIns/{signIn_id}:
+    get:
+      tags:
+        - SignIn
+      summary: Get the info of the specified signIn
+      parameters:
+        - name: signIn_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64            
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'              
+                  - type: object
+                    properties:
+                      signIn:
+                        $ref: '#/components/schemas/SignIn'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - SignIn
+      summary: Update the info of the specified signIn
+      parameters:
+        - name: signIn_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64            
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignIn'
+      responses:
+        '200':
+          description: OK
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - SignIn
+      summary: Delete the info of the specified signIn
+      parameters:
+        - name: signIn_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /signIns/{signIn_id}/reservation:
+    get:
+      tags:
+        - SignIn
+      summary: Get the reservation of the specified signIn
+      parameters:
+        - name: signIn_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ok
+          content:
+            applications/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/200'
+                  - type: object
+                    properties:
+                      reservation:
+                        $ref: '#/components/schemas/Reservation'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'                                  
+components:
+  schemas:
+    200:
+      type: object
+      description: OK
+      properties:
+        code:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: 请求成功
+    201:
+      type: object
+      description: Created
+      properties:
+        code:
+          type: integer
+          example: 201
+        message:
+          type: string
+          example: 请求已经被实现，资源已经被创建
+    204:
+      type: object
+      description: No Content      
+      properties:
+        code:
+          type: integer
+          example: 204
+        message:
+          type: string
+          example: 请求已经被实现，但是没有返回响应内容                 
+    400:
+      type: object
+      description: Bad Request
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: 请求格式错误，服务器无法理解该请求
+    401:
+      type: object
+      description: Unauthorized      
+      properties:
+        code:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: 未经授权，需要身份验证
+    403:
+      type: object
+      description: Forbidden      
+      properties:
+        code:
+          type: integer
+          example: 403
+        message:
+          type: string
+          example: 服务器已经理解请求，但是拒绝执行它 
+    404:
+      type: object
+      description: Not Found      
+      properties:
+        code:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: 请求的资源不存在 
+    405:
+      type: object
+      description: Method Not Allowed      
+      properties:
+        code:
+          type: integer
+          example: 405
+        message:
+          type: string
+          example: 请求的方法不被允许 
+    500:
+      type: object
+      description:  Internal Server Error      
+      properties:
+        code:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: 服务器内部错误
+    LoginForm:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          example: Penglei
+        password:
+          type: string
+          format: password
+          example: 123456
+    RegisterForm:
+      type: object
+      properties:
+        username:
+          type: string
+          example: Penglei
+          description: The username of the user to register
+        password:
+          type: string
+          example: 123456
+          description: The password of the user to register
+        email:
+          type: string
+          format: email
+          example: Penglei.X.Mao@gmail.com
+          description: The email of the user to register
+        phone:
+          type: string
+          example: 86-19921260737
+          description: The phone number of the user to register
+      required:
+        - username
+        - password
+    Campus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: 江湾校区
+    Building:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: 智华楼
+        alias:
+          type: string
+          example: JB
+        campus:
+          $ref: '#/components/schemas/Campus'          
+    Room:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: '101'
+        building:
+          $ref: '#/components/schemas/Building'
+        total_capacity:
+          type: integer
+          format: int64
+          example: 50
+        power_socket_capacity:
+          type: integer
+          format: int64
+          example: 20
+        status:
+          type: string
+          enum:
+            - Open
+            - Closed
+            - Under maintenance
+    Seat:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+          example: 1
+        power_supply:
+          type: boolean
+          example: true
+        room:
+          $ref: '#/components/schemas/Room'
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user:
+          $ref: '#/components/schemas/User'
+        seat:
+          $ref: '#/components/schemas/Seat'
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - Confirmed
+            - Cancelled
+            - Pending
+        status_change_time:
+          type: string
+          format: date-time
+    SignIn:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        reservation:
+          $ref: '#/components/schemas/Reservation'
+        status:
+          type: string
+          enum:
+            - Pending
+            - SignIn
+            - SignOut
+            - TimeOut
+        sign_in_start_time:
+          type: string
+          format: date-time
+        sign_in_time:
+          type: string
+          format: date-time
+        sign_out_time:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 001
+        name:
+          type: string
+          example: penglei
+        email:
+          type: string
+          example: penglei.x.mao@gmail.com
+        password:
+          type: string
+          example: 123456
+    Administrator:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Language:
+      type: string
+      enum:
+        - 简体中文
+        - English
+  requestBodies:
+    LoginRequst:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginForm'
+  responses:
+    SuccessLogin:
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/200'
+              - type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                    description: 访问令牌
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/201'
+    400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/400'
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/401'
+    500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/500'            
