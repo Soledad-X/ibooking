@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spm.ibooking.entity.*;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, Long> {
+public interface RoomRepository extends JpaRepository<Room, Integer> {
     Optional<Room> findByName(String name);
     List<Room> findByBuildingId(Integer buildingId);
     List<Room> findByBuildingName(String buildingName);

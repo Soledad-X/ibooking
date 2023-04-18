@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.spm.ibooking.entity.*;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Long> {
+public interface AdminRepository extends JpaRepository<Admin, Integer> {
     Optional<Admin> findByUsername(String username);
     Optional<Admin> findByEmail(String email);
     Optional<Admin> findByPhone(String phone);

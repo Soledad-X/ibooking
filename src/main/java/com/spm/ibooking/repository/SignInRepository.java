@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.spm.ibooking.entity.*;
 
 @Repository
-public interface SignInRepository extends JpaRepository<SignIn, Long> {
+public interface SignInRepository extends JpaRepository<SignIn, Integer> {
     List<SignIn> findByReservationId(Integer reservationId);
 }

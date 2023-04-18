@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.spm.ibooking.entity.*;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     List<Reservation> findByUserId(Integer userId);
     List<Reservation> findBySeatId(Integer seatId);
 }

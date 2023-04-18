@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.spm.ibooking.entity.*;
 
 @Repository
-public interface BuildingRepository extends JpaRepository<Building, Long> {
+public interface BuildingRepository extends JpaRepository<Building, Integer> {
     Optional<Building> findByName(String name);
 }
