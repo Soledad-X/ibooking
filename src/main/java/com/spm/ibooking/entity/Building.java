@@ -30,7 +30,5 @@ public class Building {
     @JoinColumn(name = "campus_id", nullable = false)
     private Campus campus;
     
-    @Column(name = "created_at")
-    private Timestamp createdAt;
 }
 

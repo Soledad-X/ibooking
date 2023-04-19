@@ -16,8 +16,7 @@ public class SeatService {
     private SeatRepository seatRepository;
 
     public Seat getSeatById(Integer id) {
-        Optional<Seat> seatOptional = seatRepository.findById(id);
-        return seatOptional.orElse(null);
+        return seatRepository.findById(id).orElse(null);
     }
 
     public List<Seat> getAllSeats() {

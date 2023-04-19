@@ -16,8 +16,7 @@ public class SignInService {
     private SignInRepository signInRepository;
 
     public SignIn getSignInById(Integer id) {
-        Optional<SignIn> signInOptional = signInRepository.findById(id);
-        return signInOptional.orElse(null);
+        return signInRepository.findById(id).orElse(null);
     }
 
     public List<SignIn> getAllSignIns() {

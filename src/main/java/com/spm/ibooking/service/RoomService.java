@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.entity.Room;
+import com.spm.ibooking.exception.ResourceNotFoundException;
 import com.spm.ibooking.repository.RoomRepository;
 
 @Service
@@ -15,8 +16,7 @@ public class RoomService {
     private RoomRepository roomRepository;
 
     public Room getRoomById(Integer id) {
-        Optional<Room> roomOptional = roomRepository.findById(id);
-        return roomOptional.orElse(null);
+        return roomRepository.findById(id).orElse(null);
     }
 
     public List<Room> getAllRooms() {
@@ -27,12 +27,25 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
-    public Room updateRoom(Room room) {
-        return roomRepository.save(room);
+    public Room updateRoom(Integer id, Room room) {
+        Optional<Room> optionalRoom = roomRepository.findById(id);
+        if (optionalRoom.isPresent()) {
+            Room existingRoom = optionalRoom.get();
+            existingRoom.setName(room.getName());
+            existingRoom.setBuilding(room.getBuilding());
+            existingRoom.setFloor(room.getFloor());
+            return roomRepository.save(existingRoom);
+        }
+        throw new ResourceNotFoundException("Room not found with id " + id);
     }
 
     public void deleteRoom(Integer id) {
-        roomRepository.deleteById(id);
+        Optional<Room> optionalRoom = roomRepository.findById(id);
+        if (optionalRoom.isPresent()) {
+            roomRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Room not found with id " + id);
+        }
     }
 }
 

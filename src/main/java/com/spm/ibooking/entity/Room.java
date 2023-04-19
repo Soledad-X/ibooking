@@ -26,7 +26,4 @@ public class Room {
 
     @Column(name = "floor", nullable = false)
     private Integer floor;
-
-    @Column(name = "created_at")
-    private Timestamp createdAt;
 }

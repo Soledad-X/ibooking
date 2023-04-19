@@ -16,8 +16,7 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
 
     public Reservation getReservationById(Integer id) {
-        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
-        return reservationOptional.orElse(null);
+        return reservationRepository.findById(id).orElse(null);
     }
 
     public List<Reservation> getAllReservations() {

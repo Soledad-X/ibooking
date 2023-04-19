@@ -27,9 +27,6 @@ public class Campus {
     @Column(name = "city", nullable = false)
     private String city;
     
-    @Column(name = "created_at")
-    private Timestamp createdAt;
-    
     @OneToMany(mappedBy = "campus", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Building> buildings = new ArrayList<>();
     

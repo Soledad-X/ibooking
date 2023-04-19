@@ -29,7 +29,4 @@ public class Admin {
 
     @Column(name = "phone", unique = true, nullable = false)
     private String phone;
-
-    @Column(name = "created_at")
-    private Timestamp createdAt;
 }

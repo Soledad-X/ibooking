@@ -19,8 +19,8 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public Optional<Admin> getAdminById(Integer id) {
-        return adminRepository.findById(id);
+    public Admin getAdminById(Integer id) {
+        return adminRepository.findById(id).orElse(null);
     }
 
     public Admin createAdmin(Admin admin) {

@@ -19,8 +19,8 @@ public class BuildingService {
         return buildingRepository.findAll();
     }
 
-    public Optional<Building> getBuildingById(Integer id) {
-        return buildingRepository.findById(id);
+    public Building getBuildingById(Integer id) {
+        return buildingRepository.findById(id).orElse(null);
     }
 
     public Building createBuilding(Building building) {
