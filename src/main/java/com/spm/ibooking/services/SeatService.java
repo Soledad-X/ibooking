@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.entity.Seat;
+import com.spm.ibooking.models.DO.SeatDO;
 import com.spm.ibooking.repositories.SeatRepository;
 
 @Service
@@ -15,22 +15,22 @@ public class SeatService {
     @Autowired
     private SeatRepository seatRepository;
 
-    public Seat getSeatById(Integer id) {
+    public SeatDO getSeatById(Integer id) {
         return seatRepository.findById(id).orElse(null);
     }
 
-    public List<Seat> getAllSeats() {
+    public List<SeatDO> getAllSeats() {
         return seatRepository.findAll();
     }
 
-    public Seat createSeat(Seat seat) {
+    public SeatDO createSeat(SeatDO seat) {
         return seatRepository.save(seat);
     }
 
-    public Seat updateSeat(Integer id, Seat seat) {
-        Optional<Seat> optionalSeat = seatRepository.findById(id);
+    public SeatDO updateSeat(Integer id, SeatDO seat) {
+        Optional<SeatDO> optionalSeat = seatRepository.findById(id);
         if (optionalSeat.isPresent()) {
-            Seat existingSeat = optionalSeat.get();
+            SeatDO existingSeat = optionalSeat.get();
             existingSeat.setRoom(seat.getRoom());
             existingSeat.setHasPower(seat.getHasPower());
             existingSeat.setStatus(seat.getStatus());
@@ -40,7 +40,7 @@ public class SeatService {
     }
 
     public void deleteSeat(Integer id) {
-        Optional<Seat> optionalSeat = seatRepository.findById(id);
+        Optional<SeatDO> optionalSeat = seatRepository.findById(id);
         if (optionalSeat.isPresent()) {
             seatRepository.deleteById(id);
         } else {

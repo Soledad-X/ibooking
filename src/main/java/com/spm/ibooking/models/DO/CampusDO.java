@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.DO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Campus {
+public class CampusDO {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,14 +31,14 @@ public class Campus {
     
     @OneToMany(mappedBy = "campus", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = {"campus"})
-    private List<Building> buildings = new ArrayList<>();
+    private List<BuildingDO> buildings = new ArrayList<>();
     
-    public void addBuilding(Building building) {
+    public void addBuilding(BuildingDO building) {
         buildings.add(building);
         building.setCampus(this);
     }
     
-    public void removeBuilding(Building building) {
+    public void removeBuilding(BuildingDO building) {
         buildings.remove(building);
         building.setCampus(null);
     }

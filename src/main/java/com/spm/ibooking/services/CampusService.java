@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.entity.Campus;
+import com.spm.ibooking.models.DO.CampusDO;
 import com.spm.ibooking.repositories.CampusRepository;
 
 @Service
@@ -15,22 +15,22 @@ public class CampusService {
     @Autowired
     private CampusRepository campusRepository;
 
-    public List<Campus> getAllCampuss() {
+    public List<CampusDO> getAllCampuss() {
         return campusRepository.findAll();
     }
 
-    public Campus getCampusById(Integer id) {
+    public CampusDO getCampusById(Integer id) {
         return campusRepository.findById(id).orElse(null);
     }
 
-    public Campus createCampus(Campus campus) {
+    public CampusDO createCampus(CampusDO campus) {
         return campusRepository.save(campus);
     }
 
-    public Campus updateCampus(Integer id, Campus campus) {
-        Optional<Campus> optionalCampus = campusRepository.findById(id);
+    public CampusDO updateCampus(Integer id, CampusDO campus) {
+        Optional<CampusDO> optionalCampus = campusRepository.findById(id);
         if (optionalCampus.isPresent()) {
-            Campus existingCampus = optionalCampus.get();
+            CampusDO existingCampus = optionalCampus.get();
             existingCampus.setName(campus.getName());
             existingCampus.setAddress(campus.getAddress());
             existingCampus.setCity(campus.getCity());
@@ -42,7 +42,7 @@ public class CampusService {
     }
 
     public void deleteCampus(Integer id) {
-        Optional<Campus> optionalCampus = campusRepository.findById(id);
+        Optional<CampusDO> optionalCampus = campusRepository.findById(id);
         if (optionalCampus.isPresent()) {
             campusRepository.deleteById(id);
         } else {

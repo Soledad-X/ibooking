@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.DO;
 
 import javax.persistence.*;
 
@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class UserDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

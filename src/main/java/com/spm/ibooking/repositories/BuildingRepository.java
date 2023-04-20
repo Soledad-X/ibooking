@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spm.ibooking.models.entity.*;
+import com.spm.ibooking.models.DO.*;
 
-public interface BuildingRepository extends JpaRepository<Building, Integer> {
-    Optional<Building> findByName(String name);
+public interface BuildingRepository extends JpaRepository<BuildingDO, Integer> {
+    Optional<BuildingDO> findByName(String name);
 }

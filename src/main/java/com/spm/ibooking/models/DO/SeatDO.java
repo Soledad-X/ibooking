@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.DO;
 
 import lombok.*;
 
@@ -6,20 +6,22 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
+import com.spm.ibooking.models.enums.SeatStatus;
+
 @Data
 @Entity
 @Table(name = "seats")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Seat {
+public class SeatDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
-    private Room room;
+    private RoomDO room;
 
     @Column(name = "has_power")
     private Boolean hasPower;

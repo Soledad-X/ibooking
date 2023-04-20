@@ -2,7 +2,7 @@ package com.spm.ibooking.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spm.ibooking.models.entity.*;
+import com.spm.ibooking.models.DO.*;
 
-public interface CampusRepository extends JpaRepository<Campus, Integer> {
+public interface CampusRepository extends JpaRepository<CampusDO, Integer> {
 }

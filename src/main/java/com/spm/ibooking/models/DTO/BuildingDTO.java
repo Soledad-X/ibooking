@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.dto;
+package com.spm.ibooking.models.DTO;
 
 import lombok.*;
 

@@ -1,8 +1,11 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.DO;
 
 import lombok.*;
 
 import javax.persistence.*;
+
+import com.spm.ibooking.models.enums.ReservationStatus;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -11,7 +14,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Reservation {
+public class ReservationDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +22,11 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private UserDO user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id", referencedColumnName = "id")
-    private Seat seat;
+    private SeatDO seat;
 
     @Column(name = "start_time", nullable = false)
     private Timestamp startTime;

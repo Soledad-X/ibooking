@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.entity.Reservation;
+import com.spm.ibooking.models.DO.ReservationDO;
 import com.spm.ibooking.repositories.ReservationRepository;
 
 @Service
@@ -15,22 +15,22 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public Reservation getReservationById(Integer id) {
+    public ReservationDO getReservationById(Integer id) {
         return reservationRepository.findById(id).orElse(null);
     }
 
-    public List<Reservation> getAllReservations() {
+    public List<ReservationDO> getAllReservations() {
         return reservationRepository.findAll();
     }
 
-    public Reservation createReservation(Reservation reservation) {
+    public ReservationDO createReservation(ReservationDO reservation) {
         return reservationRepository.save(reservation);
     }
 
-    public Reservation updateReservation(Integer id, Reservation reservation) {
-        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+    public ReservationDO updateReservation(Integer id, ReservationDO reservation) {
+        Optional<ReservationDO> optionalReservation = reservationRepository.findById(id);
         if (optionalReservation.isPresent()) {
-            Reservation existingReservation = optionalReservation.get();
+            ReservationDO existingReservation = optionalReservation.get();
             existingReservation.setUser(reservation.getUser());
             existingReservation.setSeat(reservation.getSeat());
             existingReservation.setStartTime(reservation.getStartTime());
@@ -42,7 +42,7 @@ public class ReservationService {
     }
 
     public void deleteReservation(Integer id) {
-        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        Optional<ReservationDO> optionalReservation = reservationRepository.findById(id);
         if (optionalReservation.isPresent()) {
             reservationRepository.deleteById(id);
         } else {

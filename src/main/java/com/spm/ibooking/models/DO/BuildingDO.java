@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.DO;
 
 import javax.persistence.*;
 
@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Building {
+public class BuildingDO {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Building {
     @ManyToOne
     @JoinColumn(name = "campus_id", referencedColumnName = "id", nullable = false)
     @JsonIgnoreProperties(value = {"buildings"})
-    private Campus campus;
+    private CampusDO campus;
     
 }
 

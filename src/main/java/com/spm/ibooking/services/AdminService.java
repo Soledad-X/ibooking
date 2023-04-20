@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.entity.Admin;
+import com.spm.ibooking.models.DO.AdminDO;
 import com.spm.ibooking.repositories.AdminRepository;
 
 @Service
@@ -15,22 +15,22 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public List<Admin> getAllAdmins() {
+    public List<AdminDO> getAllAdmins() {
         return adminRepository.findAll();
     }
 
-    public Admin getAdminById(Integer id) {
+    public AdminDO getAdminById(Integer id) {
         return adminRepository.findById(id).orElse(null);
     }
 
-    public Admin createAdmin(Admin admin) {
+    public AdminDO createAdmin(AdminDO admin) {
         return adminRepository.save(admin);
     }
 
-    public Admin updateAdmin(Integer id, Admin admin) {
-        Optional<Admin> optionalAdmin = adminRepository.findById(id);
+    public AdminDO updateAdmin(Integer id, AdminDO admin) {
+        Optional<AdminDO> optionalAdmin = adminRepository.findById(id);
         if (optionalAdmin.isPresent()) {
-            Admin existingAdmin = optionalAdmin.get();
+            AdminDO existingAdmin = optionalAdmin.get();
             existingAdmin.setUsername(admin.getUsername());
             existingAdmin.setPassword(admin.getPassword());
             existingAdmin.setEmail(admin.getEmail());
@@ -41,7 +41,7 @@ public class AdminService {
     }
 
     public void deleteAdmin(Integer id) {
-        Optional<Admin> optionalAdmin = adminRepository.findById(id);
+        Optional<AdminDO> optionalAdmin = adminRepository.findById(id);
         if (optionalAdmin.isPresent()) {
             adminRepository.deleteById(id);
         } else {

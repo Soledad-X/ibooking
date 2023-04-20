@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spm.ibooking.models.entity.*;
+import com.spm.ibooking.models.DO.*;
 
-public interface AdminRepository extends JpaRepository<Admin, Integer> {
-    Optional<Admin> findByUsername(String username);
-    Optional<Admin> findByEmail(String email);
-    Optional<Admin> findByPhone(String phone);
+public interface AdminRepository extends JpaRepository<AdminDO, Integer> {
+    Optional<AdminDO> findByUsername(String username);
+    Optional<AdminDO> findByEmail(String email);
+    Optional<AdminDO> findByPhone(String phone);
 }

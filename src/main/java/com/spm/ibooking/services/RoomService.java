@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.entity.Room;
+import com.spm.ibooking.models.DO.RoomDO;
 import com.spm.ibooking.repositories.RoomRepository;
 
 @Service
@@ -15,22 +15,22 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public Room getRoomById(Integer id) {
+    public RoomDO getRoomById(Integer id) {
         return roomRepository.findById(id).orElse(null);
     }
 
-    public List<Room> getAllRooms() {
+    public List<RoomDO> getAllRooms() {
         return roomRepository.findAll();
     }
 
-    public Room createRoom(Room room) {
+    public RoomDO createRoom(RoomDO room) {
         return roomRepository.save(room);
     }
 
-    public Room updateRoom(Integer id, Room room) {
-        Optional<Room> optionalRoom = roomRepository.findById(id);
+    public RoomDO updateRoom(Integer id, RoomDO room) {
+        Optional<RoomDO> optionalRoom = roomRepository.findById(id);
         if (optionalRoom.isPresent()) {
-            Room existingRoom = optionalRoom.get();
+            RoomDO existingRoom = optionalRoom.get();
             existingRoom.setName(room.getName());
             existingRoom.setBuilding(room.getBuilding());
             existingRoom.setFloor(room.getFloor());
@@ -40,7 +40,7 @@ public class RoomService {
     }
 
     public void deleteRoom(Integer id) {
-        Optional<Room> optionalRoom = roomRepository.findById(id);
+        Optional<RoomDO> optionalRoom = roomRepository.findById(id);
         if (optionalRoom.isPresent()) {
             roomRepository.deleteById(id);
         } else {

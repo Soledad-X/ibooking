@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.enums;
 
 public enum ReservationStatus {
     CONFIRMED("确定"),

@@ -1,8 +1,11 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.DO;
 
 import lombok.*;
 
 import javax.persistence.*;
+
+import com.spm.ibooking.models.enums.SignInStatus;
+
 import java.sql.Timestamp;
 
 @Data
@@ -11,14 +14,14 @@ import java.sql.Timestamp;
 @Builder
 @Entity
 @Table(name = "sign_ins")
-public class SignIn {
+public class SignInDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "reservation_id", nullable = false)
-    private Reservation reservation;
+    private ReservationDO reservation;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.entity;
+package com.spm.ibooking.models.enums;
 
 public enum SeatStatus {
     UNDER_MAINTENANCE("待维修"),
