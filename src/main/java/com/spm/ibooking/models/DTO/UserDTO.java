@@ -5,21 +5,20 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuildingDTO {
-    
-    private Integer id;
-    
-    private String name;
-    
-    private String alias;
-    
-    private Integer floor;
+public class UserDTO {
 
-    private CampusDTO campus;
+    private Integer id;
+
+    private String username;
+
+    private String password;
+
+    private String email;
+
+    private String phone;
 
     // private Timestamp createdAt;
 
     // private Timestamp updatedAt;
     
 }
-
