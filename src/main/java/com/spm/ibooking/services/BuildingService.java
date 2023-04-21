@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.DO.BuildingDO;
 import com.spm.ibooking.models.DTO.BuildingDTO;
+import com.spm.ibooking.models.PO.Building;
 import com.spm.ibooking.repositories.BuildingRepository;
 import com.spm.ibooking.repositories.CampusRepository;
 
@@ -19,16 +19,16 @@ public class BuildingService {
     @Autowired
     private CampusRepository campusRepository;
     
-    public List<BuildingDO> getAllBuildings() {
+    public List<Building> getAllBuildings() {
         return buildingRepository.findAll();
     }
 
-    public BuildingDO getBuildingById(Integer id) {
+    public Building getBuildingById(Integer id) {
         return buildingRepository.findById(id).orElse(null);
     }
 
-    public BuildingDO createBuilding(BuildingDTO buildingDTO) {
-        BuildingDO building = new BuildingDO();
+    public Building createBuilding(BuildingDTO buildingDTO) {
+        Building building = new Building();
         building.setName(buildingDTO.getName());
         building.setAlias(buildingDTO.getAlias());
         building.setFloor(buildingDTO.getFloor());
@@ -36,10 +36,10 @@ public class BuildingService {
         return buildingRepository.save(building);
     }
 
-    public BuildingDO updateBuilding(Integer id, BuildingDTO building) {
-        Optional<BuildingDO> optionalBuilding = buildingRepository.findById(id);
+    public Building updateBuilding(Integer id, BuildingDTO building) {
+        Optional<Building> optionalBuilding = buildingRepository.findById(id);
         if (optionalBuilding.isPresent()) {
-            BuildingDO existingBuilding = optionalBuilding.get();
+            Building existingBuilding = optionalBuilding.get();
             existingBuilding.setName(building.getName());
             existingBuilding.setAlias(building.getAlias());
             existingBuilding.setFloor(building.getFloor());
@@ -50,7 +50,7 @@ public class BuildingService {
     }
 
     public void deleteBuilding(Integer id) {
-        Optional<BuildingDO> optionalBuilding = buildingRepository.findById(id);
+        Optional<Building> optionalBuilding = buildingRepository.findById(id);
         if (optionalBuilding.isPresent()) {
             buildingRepository.deleteById(id);
         } else {

@@ -1,5 +1,6 @@
-package com.spm.ibooking.models.DO;
+package com.spm.ibooking.models.PO;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
 
-@Entity
-@Table(name = "campuses")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CampusDO {
+@Entity
+@Table(name = "campuses")
+public class Campus {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,16 +30,22 @@ public class CampusDO {
     @Column(name = "city", nullable = false)
     private String city;
     
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
+    
     @OneToMany(mappedBy = "campus", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = {"campus"})
-    private List<BuildingDO> buildings = new ArrayList<>();
+    private List<Building> buildings = new ArrayList<>();
     
-    public void addBuilding(BuildingDO building) {
+    public void addBuilding(Building building) {
         buildings.add(building);
         building.setCampus(this);
     }
     
-    public void removeBuilding(BuildingDO building) {
+    public void removeBuilding(Building building) {
         buildings.remove(building);
         building.setCampus(null);
     }

@@ -1,15 +1,16 @@
-package com.spm.ibooking.models.DO;
+package com.spm.ibooking.models.PO;
+
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 import lombok.*;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "rooms")
-public class RoomDO {
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +21,14 @@ public class RoomDO {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id", nullable = false)
-    private BuildingDO building;
+    private Building building;
 
     @Column(name = "floor", nullable = false)
     private Integer floor;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 }

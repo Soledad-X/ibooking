@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.DO;
+package com.spm.ibooking.models.PO;
 
 import lombok.*;
 
@@ -8,13 +8,12 @@ import com.spm.ibooking.models.enums.ReservationStatus;
 
 import java.sql.Timestamp;
 
-@Entity
-@Table(name = "reservations")
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDO {
+@Entity
+@Table(name = "reservations")
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +21,11 @@ public class ReservationDO {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserDO user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id", referencedColumnName = "id")
-    private SeatDO seat;
+    private Seat seat;
 
     @Column(name = "start_time", nullable = false)
     private Timestamp startTime;
@@ -40,4 +39,10 @@ public class ReservationDO {
 
     @Column(name = "status_updated_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp statusUpdatedAt;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 }

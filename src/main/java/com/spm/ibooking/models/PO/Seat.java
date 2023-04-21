@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.DO;
+package com.spm.ibooking.models.PO;
 
 import lombok.*;
 
@@ -9,19 +9,18 @@ import javax.persistence.*;
 import com.spm.ibooking.models.enums.SeatStatus;
 
 @Data
-@Entity
-@Table(name = "seats")
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SeatDO {
+@Entity
+@Table(name = "seats")
+public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
-    private RoomDO room;
+    private Room room;
 
     @Column(name = "has_power")
     private Boolean hasPower;
@@ -32,6 +31,12 @@ public class SeatDO {
     @Column(name = "status_updated_at")
     @Setter(AccessLevel.NONE)
     private Timestamp statusUpdatedAt;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 
     @PreUpdate
     protected void onUpdate() {

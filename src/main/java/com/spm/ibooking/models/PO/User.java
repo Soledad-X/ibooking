@@ -1,16 +1,17 @@
-package com.spm.ibooking.models.DO;
+package com.spm.ibooking.models.PO;
+
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
 import lombok.*;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserDO {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +29,9 @@ public class UserDO {
     @Column(name = "phone", unique = true, nullable = false)
     private String phone;
     
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 }

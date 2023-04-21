@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spm.ibooking.models.DO.*;
+import com.spm.ibooking.models.PO.*;
 
-public interface UserRepository extends JpaRepository<UserDO, Integer> {
-    Optional<UserDO> findByUsername(String username);
-    Optional<UserDO> findByEmail(String email);
-    Optional<UserDO> findByPhone(String phone);
+public interface UserRepository extends JpaRepository<User, Integer> {
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    Optional<User> findByPhone(String phone);
 }
 

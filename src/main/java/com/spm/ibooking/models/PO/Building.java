@@ -1,4 +1,6 @@
-package com.spm.ibooking.models.DO;
+package com.spm.ibooking.models.PO;
+
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -6,13 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
 
-@Entity
-@Table(name = "buildings")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuildingDO {
+@Entity
+@Table(name = "buildings")
+public class Building {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,13 @@ public class BuildingDO {
     @ManyToOne
     @JoinColumn(name = "campus_id", referencedColumnName = "id", nullable = false)
     @JsonIgnoreProperties(value = {"buildings"})
-    private CampusDO campus;
+    private Campus campus;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
     
 }
 

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.DO.UserDO;
+import com.spm.ibooking.models.PO.User;
 import com.spm.ibooking.services.UserService;
 
 @RestController
@@ -19,20 +19,20 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDO> getUserById(@PathVariable Integer id) throws ResourceNotFoundException {
-        UserDO user = userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@PathVariable Integer id) throws ResourceNotFoundException {
+        User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping
-    public ResponseEntity<UserDO> createUser(@RequestBody UserDO user) {
-        UserDO createdUser = userService.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
         return ResponseEntity.created(URI.create("/api/users/" + createdUser.getId())).body(createdUser);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDO> updateUser(@PathVariable Integer id, @RequestBody UserDO user) throws ResourceNotFoundException {
-        UserDO updatedUser = userService.updateUser(id, user);
+    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) throws ResourceNotFoundException {
+        User updatedUser = userService.updateUser(id, user);
         return ResponseEntity.ok(updatedUser);
     }
 
@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDO>> getAllUsers() {
-        List<UserDO> users = userService.getAllUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 }

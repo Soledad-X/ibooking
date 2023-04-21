@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.DO.SignInDO;
+import com.spm.ibooking.models.PO.SignIn;
 import com.spm.ibooking.repositories.SignInRepository;
 
 @Service
@@ -15,22 +15,22 @@ public class SignInService {
     @Autowired
     private SignInRepository signInRepository;
 
-    public SignInDO getSignInById(Integer id) {
+    public SignIn getSignInById(Integer id) {
         return signInRepository.findById(id).orElse(null);
     }
 
-    public List<SignInDO> getAllSignIns() {
+    public List<SignIn> getAllSignIns() {
         return signInRepository.findAll();
     }
 
-    public SignInDO createSignIn(SignInDO signIn) {
+    public SignIn createSignIn(SignIn signIn) {
         return signInRepository.save(signIn);
     }
 
-    public SignInDO updateSignIn(Integer id, SignInDO signIn) {
-        Optional<SignInDO> optionalSignIn = signInRepository.findById(id);
+    public SignIn updateSignIn(Integer id, SignIn signIn) {
+        Optional<SignIn> optionalSignIn = signInRepository.findById(id);
         if (optionalSignIn.isPresent()) {
-            SignInDO existingSignIn = optionalSignIn.get();
+            SignIn existingSignIn = optionalSignIn.get();
             existingSignIn.setReservation(signIn.getReservation());
             existingSignIn.setSignInTime(signIn.getSignInTime());
             existingSignIn.setSignOutTime(signIn.getSignOutTime());
@@ -42,7 +42,7 @@ public class SignInService {
     }
 
     public void deleteSignIn(Integer id) {
-        Optional<SignInDO> optionalSignIn = signInRepository.findById(id);
+        Optional<SignIn> optionalSignIn = signInRepository.findById(id);
         if (optionalSignIn.isPresent()) {
             signInRepository.deleteById(id);
         } else {

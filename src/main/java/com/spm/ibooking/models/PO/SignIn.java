@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.DO;
+package com.spm.ibooking.models.PO;
 
 import lombok.*;
 
@@ -11,17 +11,16 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "sign_ins")
-public class SignInDO {
+public class SignIn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "reservation_id", nullable = false)
-    private ReservationDO reservation;
+    private Reservation reservation;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -36,4 +35,10 @@ public class SignInDO {
 
     @Column(nullable = false, updatable = false)
     private Timestamp statusUpdatedAt;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.DO.UserDO;
+import com.spm.ibooking.models.PO.User;
 import com.spm.ibooking.repositories.UserRepository;
 
 @Service
@@ -15,22 +15,22 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDO getUserById(Integer id) {
+    public User getUserById(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public List<UserDO> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public UserDO createUser(UserDO user) {
+    public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    public UserDO updateUser(Integer id, UserDO user) {
-        Optional<UserDO> optionalUser = userRepository.findById(id);
+    public User updateUser(Integer id, User user) {
+        Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
-            UserDO existingUser = optionalUser.get();
+            User existingUser = optionalUser.get();
             existingUser.setUsername(user.getUsername());
             existingUser.setPassword(user.getPassword());
             existingUser.setEmail(user.getEmail());
@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public void deleteUser(Integer id) {
-        Optional<UserDO> optionalUser = userRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             userRepository.deleteById(id);
         } else {

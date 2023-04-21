@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spm.ibooking.models.DO.*;
+import com.spm.ibooking.models.PO.*;
 
-public interface RoomRepository extends JpaRepository<RoomDO, Integer> {
-    Optional<RoomDO> findByName(String name);
-    List<RoomDO> findByBuildingId(Integer buildingId);
-    List<RoomDO> findByBuildingName(String buildingName);
+public interface RoomRepository extends JpaRepository<Room, Integer> {
+    Optional<Room> findByName(String name);
+    List<Room> findByBuildingId(Integer buildingId);
+    List<Room> findByBuildingName(String buildingName);
 }
