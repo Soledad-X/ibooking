@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spm.ibooking.models.PO.*;
+import com.spm.ibooking.models.PO.SignIn;
 
 public interface SignInRepository extends JpaRepository<SignIn, Integer> {
     List<SignIn> findByReservationId(Integer reservationId);
