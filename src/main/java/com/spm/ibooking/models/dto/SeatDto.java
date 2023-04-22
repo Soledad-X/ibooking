@@ -5,11 +5,13 @@ import lombok.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spm.ibooking.models.enums.SeatStatus;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SeatDto implements Serializable{
 
     private Integer id;
