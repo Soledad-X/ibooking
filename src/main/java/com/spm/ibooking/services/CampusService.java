@@ -3,6 +3,7 @@ package com.spm.ibooking.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
@@ -30,7 +31,8 @@ public class CampusService {
 
     public CampusDto create(CampusDto campusDto) {
         Campus campus = BeanUtils.convertTo(campusDto, Campus::new, true);
-        return BeanUtils.convertTo(campusRepository.save(campus), CampusDto::new, true);
+        return BeanUtils.convertTo(campusRepository.save(campus), CampusDto::new, true,
+            (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingDto::new)));
     }
 
     public CampusDto update(Integer id, CampusDto campusDto) {
@@ -38,10 +40,9 @@ public class CampusService {
         if (optionalCampus.isPresent()) {
             Campus campus = optionalCampus.get();
             BeanUtils.copyTo(campusDto, campus, true);
-            campus = BeanUtils.convertTo(campusDto, Campus::new, true);
-            campus.setId(id); 
             // set other fields you want to update
-            return BeanUtils.convertTo(campusRepository.save(campus), CampusDto::new, true);
+            return BeanUtils.convertTo(campusRepository.save(campus), CampusDto::new, true,
+            (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingDto::new)));
         }
         throw new ResourceNotFoundException("Campus not found with id " + id);
     }
