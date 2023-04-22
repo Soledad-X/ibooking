@@ -2,6 +2,8 @@ package com.spm.ibooking.models.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.*;
 
 @Data
@@ -13,6 +15,7 @@ public class AdminDto implements Serializable {
     
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private String email;

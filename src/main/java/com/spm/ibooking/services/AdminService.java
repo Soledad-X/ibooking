@@ -27,17 +27,14 @@ public class AdminService {
 
     public AdminDto create(AdminDto adminDto) {
         Admin admin = BeanUtils.convertTo(adminDto, Admin::new, true);
-        return BeanUtils.convertTo(admin, AdminDto::new, true);
+        return BeanUtils.convertTo(adminRepository.save(admin), AdminDto::new, true);
     }
 
     public AdminDto update(Integer id, AdminDto adminDto) {
         Optional<Admin> optionalAdmin = adminRepository.findById(id);
         if (optionalAdmin.isPresent()) {
             Admin admin = optionalAdmin.get();
-            admin.setUsername(adminDto.getUsername());
-            admin.setPassword(adminDto.getPassword());
-            admin.setEmail(adminDto.getEmail());
-            admin.setPhone(adminDto.getPhone());
+            BeanUtils.copyTo(adminDto, admin, true);
             return BeanUtils.convertTo(adminRepository.save(admin), AdminDto::new, true);
         }
         throw new ResourceNotFoundException("Admin not found with id " + id);
