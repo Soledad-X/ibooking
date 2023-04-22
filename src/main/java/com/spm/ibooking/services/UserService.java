@@ -27,18 +27,14 @@ public class UserService {
 
     public UserDto create(UserDto userDto) {
         User user = BeanUtils.convertTo(userDto, User::new, true);
-        return BeanUtils.convertTo(user, UserDto::new, true);
+        return BeanUtils.convertTo(userRepository.save(user), UserDto::new, true);
     }
 
     public UserDto update(Integer id, UserDto userDto) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            // existingUser.setUsername(user.getUsername());
-            // existingUser.setPassword(user.getPassword());
-            // existingUser.setEmail(user.getEmail());
-            // existingUser.setPhone(user.getPhone());
-            user = BeanUtils.convertTo(userDto, User::new, true);
+            BeanUtils.copyTo(userDto, user, true);
             return BeanUtils.convertTo(userRepository.save(user), UserDto::new, true);
         }
         throw new ResourceNotFoundException("User not found with id " + id);
