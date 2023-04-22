@@ -1,11 +1,13 @@
 package com.spm.ibooking.models.DTO;
 
+import java.io.Serializable;
+
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDTO implements Serializable{
 
     private Integer id;
 

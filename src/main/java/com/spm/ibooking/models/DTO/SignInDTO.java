@@ -4,12 +4,13 @@ import lombok.*;
 
 import com.spm.ibooking.models.enums.SignInStatus;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInDTO {
+public class SignInDTO implements Serializable{
 
     private Integer id;
 

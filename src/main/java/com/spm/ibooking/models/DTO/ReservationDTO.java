@@ -4,12 +4,13 @@ import lombok.*;
 
 import com.spm.ibooking.models.enums.ReservationStatus;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDTO {
+public class ReservationDTO implements Serializable {
 
     private Integer id;
 

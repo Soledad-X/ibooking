@@ -2,6 +2,7 @@ package com.spm.ibooking.models.DTO;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.spm.ibooking.models.enums.SeatStatus;
@@ -9,7 +10,7 @@ import com.spm.ibooking.models.enums.SeatStatus;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SeatDTO {
+public class SeatDTO implements Serializable{
 
     private Integer id;
 
