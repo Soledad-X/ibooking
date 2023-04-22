@@ -26,15 +26,6 @@ public class CampusBo {
     
     @JsonIgnoreProperties(value = {"campus"})
     private List<BuildingBo> buildings = new ArrayList<>();
-    
-    public void addBuilding(BuildingBo building) {
-        buildings.add(building);
-        building.setCampus(this);
-    }
-    
-    public void removeBuilding(BuildingBo building) {
-        buildings.remove(building);
-        building.setCampus(null);
-    }
+
 }
 

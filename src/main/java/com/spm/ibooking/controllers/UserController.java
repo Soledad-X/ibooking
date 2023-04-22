@@ -1,14 +1,11 @@
 package com.spm.ibooking.controllers;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.bo.UserBo;
 import com.spm.ibooking.models.dto.UserDto;
 import com.spm.ibooking.services.UserService;
 
@@ -20,33 +17,39 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserBo>> getAllUsers() {
-        List<UserBo> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<UserDto> getAll() {
+        return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserBo> getUserById(@PathVariable Integer id) throws ResourceNotFoundException {
-        UserBo user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserDto getById(@PathVariable Integer id) {
+        return userService.getById(id);
     }
 
     @PostMapping
-    public ResponseEntity<UserBo> createUser(@RequestBody UserDto userDto) {
-        UserBo createdUser = userService.createUser(userDto);
-        return ResponseEntity.created(URI.create("/api/users/" + createdUser.getId())).body(createdUser);
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public UserDto create(@RequestBody UserDto userDto) {
+        return userService.create(userDto);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserBo> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto) throws ResourceNotFoundException {
-        UserBo updatedUser = userService.updateUser(id, userDto);
-        return ResponseEntity.ok(updatedUser);
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserDto update(@PathVariable Integer id, @RequestBody UserDto userDto) {
+        return userService.update(id, userDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) throws ResourceNotFoundException {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public Void delete(@PathVariable Integer id) {
+        userService.delete(id);
+        return null;
     }
 
 }

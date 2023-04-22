@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.bo.BuildingBo;
-import com.spm.ibooking.models.bo.CampusBo;
+import com.spm.ibooking.models.dto.BuildingDto;
 import com.spm.ibooking.models.dto.CampusDto;
 import com.spm.ibooking.models.po.Campus;
 import com.spm.ibooking.repositories.CampusRepository;
@@ -19,22 +18,22 @@ public class CampusService {
     @Autowired
     private CampusRepository campusRepository;
 
-    public List<CampusBo> getAllCampuss() {
-        return BeanUtils.convertListTo(campusRepository.findAll(), CampusBo::new, true,
-            (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingBo::new)));
+    public List<CampusDto> getAll() {
+        return BeanUtils.convertListTo(campusRepository.findAll(), CampusDto::new, true,
+            (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingDto::new)));
     }
 
-    public CampusBo getCampusById(Integer id) {
-        return BeanUtils.convertTo(campusRepository.findById(id).orElse(null), CampusBo::new, true,
-        (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingBo::new)));
+    public CampusDto getById(Integer id) {
+        return BeanUtils.convertTo(campusRepository.findById(id).orElse(null), CampusDto::new, true,
+        (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingDto::new)));
     }
 
-    public CampusBo createCampus(CampusDto campusDto) {
+    public CampusDto create(CampusDto campusDto) {
         Campus campus = BeanUtils.convertTo(campusDto, Campus::new, true);
-        return BeanUtils.convertTo(campusRepository.save(campus), CampusBo::new, true);
+        return BeanUtils.convertTo(campusRepository.save(campus), CampusDto::new, true);
     }
 
-    public CampusBo updateCampus(Integer id, CampusDto campusDto) {
+    public CampusDto update(Integer id, CampusDto campusDto) {
         Optional<Campus> optionalCampus = campusRepository.findById(id);
         if (optionalCampus.isPresent()) {
             Campus campus = optionalCampus.get();
@@ -42,12 +41,12 @@ public class CampusService {
             campus = BeanUtils.convertTo(campusDto, Campus::new, true);
             campus.setId(id); 
             // set other fields you want to update
-            return BeanUtils.convertTo(campusRepository.save(campus), CampusBo::new, true);
+            return BeanUtils.convertTo(campusRepository.save(campus), CampusDto::new, true);
         }
         throw new ResourceNotFoundException("Campus not found with id " + id);
     }
 
-    public void deleteCampus(Integer id) {
+    public void delete(Integer id) {
         Optional<Campus> optionalCampus = campusRepository.findById(id);
         if (optionalCampus.isPresent()) {
             campusRepository.deleteById(id);

@@ -4,11 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.bo.BuildingBo;
 import com.spm.ibooking.models.dto.BuildingDto;
 import com.spm.ibooking.services.BuildingService;
 
@@ -20,32 +17,38 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @GetMapping
-    public ResponseEntity<List<BuildingBo>> getAllBuildings() {
-        List<BuildingBo> buildings = buildingService.getAllBuildings();
-        return ResponseEntity.ok(buildings);
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<BuildingDto> getAll() {
+        return buildingService.getAll();
     }
 
     @GetMapping("/{buildingId}")
-    public ResponseEntity<BuildingBo> getBuildingById(@PathVariable Integer buildingId) throws ResourceNotFoundException {
-        BuildingBo building = buildingService.getBuildingById(buildingId);
-        return ResponseEntity.ok(building);
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public BuildingDto getById(@PathVariable Integer buildingId) {
+        return buildingService.getById(buildingId);
     }
 
     @PostMapping
-    public ResponseEntity<BuildingBo> createBuilding(@RequestBody BuildingDto buildingDto) {
-        BuildingBo createdBuilding = buildingService.createBuilding(buildingDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdBuilding);
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public BuildingDto create(@RequestBody BuildingDto buildingDto) {
+        return buildingService.create(buildingDto);
     }
 
     @PatchMapping("/{buildingId}")
-    public ResponseEntity<BuildingBo> updateBuilding(@PathVariable Integer buildingId, @RequestBody BuildingDto buildingDto) throws ResourceNotFoundException {
-        BuildingBo updatedBuilding = buildingService.updateBuilding(buildingId, buildingDto);
-        return ResponseEntity.ok(updatedBuilding);
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public BuildingDto update(@PathVariable Integer buildingId, @RequestBody BuildingDto buildingDto) {
+        return buildingService.update(buildingId, buildingDto);
     }
 
     @DeleteMapping("/{buildingId}")
-    public ResponseEntity<Void> deleteBuilding(@PathVariable Integer buildingId) throws ResourceNotFoundException {
-        buildingService.deleteBuilding(buildingId);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public Void delete(@PathVariable Integer buildingId) {
+        buildingService.delete(buildingId);
+        return null;
     }
 }

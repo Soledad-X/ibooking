@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.bo.UserBo;
 import com.spm.ibooking.models.dto.UserDto;
 import com.spm.ibooking.models.po.User;
 import com.spm.ibooking.repositories.UserRepository;
@@ -18,20 +17,20 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserBo> getAllUsers() {
-        return BeanUtils.convertListTo(userRepository.findAll(), UserBo::new, true);
+    public List<UserDto> getAll() {
+        return BeanUtils.convertListTo(userRepository.findAll(), UserDto::new, true);
     }
 
-    public UserBo getUserById(Integer id) {
-        return BeanUtils.convertTo(userRepository.findById(id).orElse(null), UserBo::new, true);
+    public UserDto getById(Integer id) {
+        return BeanUtils.convertTo(userRepository.findById(id).orElse(null), UserDto::new, true);
     }
 
-    public UserBo createUser(UserDto userDto) {
+    public UserDto create(UserDto userDto) {
         User user = BeanUtils.convertTo(userDto, User::new, true);
-        return BeanUtils.convertTo(user, UserBo::new, true);
+        return BeanUtils.convertTo(user, UserDto::new, true);
     }
 
-    public UserBo updateUser(Integer id, UserDto userDto) {
+    public UserDto update(Integer id, UserDto userDto) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -40,12 +39,12 @@ public class UserService {
             // existingUser.setEmail(user.getEmail());
             // existingUser.setPhone(user.getPhone());
             user = BeanUtils.convertTo(userDto, User::new, true);
-            return BeanUtils.convertTo(userRepository.save(user), UserBo::new, true);
+            return BeanUtils.convertTo(userRepository.save(user), UserDto::new, true);
         }
         throw new ResourceNotFoundException("User not found with id " + id);
     }
 
-    public void deleteUser(Integer id) {
+    public void delete(Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             userRepository.deleteById(id);
