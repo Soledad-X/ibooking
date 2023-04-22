@@ -34,7 +34,8 @@ public class BuildingService {
     public BuildingDto create(BuildingDto buildingDto) {
         Building building = BeanUtils.convertTo(buildingDto, Building::new, true,
             (s, t) -> t.setCampus(campusRepository.findById(s.getCampusId()).orElse(null)));        
-        return BeanUtils.convertTo(buildingRepository.save(building), BuildingDto::new, true);
+        return BeanUtils.convertTo(buildingRepository.save(building), BuildingDto::new, true,
+            (s, t) -> t.setCampus((BeanUtils.convertTo(s.getCampus(), CampusDto::new, true))));
     }
 
     public BuildingDto update(Integer id, BuildingDto buildingDto) {
