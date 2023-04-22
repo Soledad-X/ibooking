@@ -2,9 +2,7 @@ package com.spm.ibooking.models.PO;
 
 import lombok.*;
 
-import javax.persistence.*;
-
-import com.spm.ibooking.models.enums.ReservationStatus;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
@@ -33,9 +31,9 @@ public class Reservation {
     @Column(name = "end_time", nullable = false)
     private Timestamp endTime;
 
-    @Enumerated(EnumType.STRING)
+    // @Enumerated(EnumType.ORDINAL)
     @Column(name = "status", nullable = false)
-    private ReservationStatus status;
+    private Integer status;
 
     @Column(name = "status_updated_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp statusUpdatedAt;

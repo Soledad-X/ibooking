@@ -2,9 +2,7 @@ package com.spm.ibooking.models.PO;
 
 import lombok.*;
 
-import javax.persistence.*;
-
-import com.spm.ibooking.models.enums.SignInStatus;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
@@ -22,9 +20,9 @@ public class SignIn {
     @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 
-    @Enumerated(EnumType.STRING)
+    // @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
-    private SignInStatus status;
+    private Integer status;
 
     @Column(nullable = false, updatable = false)
     private Timestamp startTime;

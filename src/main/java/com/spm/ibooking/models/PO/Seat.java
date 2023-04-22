@@ -4,9 +4,7 @@ import lombok.*;
 
 import java.sql.Timestamp;
 
-import javax.persistence.*;
-
-import com.spm.ibooking.models.enums.SeatStatus;
+import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -25,8 +23,9 @@ public class Seat {
     @Column(name = "has_power")
     private Boolean hasPower;
 
-    @Enumerated(EnumType.STRING)
-    private SeatStatus status;
+    // @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status")
+    private Integer status;
 
     @Column(name = "status_updated_at")
     @Setter(AccessLevel.NONE)

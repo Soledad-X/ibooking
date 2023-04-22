@@ -13,6 +13,8 @@ public class SeatDTO {
 
     private Integer id;
 
+    private Integer roomId;
+    
     private RoomDTO room;
 
     private Boolean hasPower;

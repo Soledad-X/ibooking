@@ -7,9 +7,11 @@ import lombok.*;
 @AllArgsConstructor
 public class RoomDTO {
 
-    private Long id;
+    private Integer id;
 
     private String name;
+
+    private Integer buldingId;
 
     private BuildingDTO building;
 

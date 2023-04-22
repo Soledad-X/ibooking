@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
+import com.spm.ibooking.models.BO.CampusBO;
+import com.spm.ibooking.models.DTO.CampusDTO;
 import com.spm.ibooking.models.PO.Campus;
 import com.spm.ibooking.repositories.CampusRepository;
+import com.spm.ibooking.utils.BeanUtils;
 
 @Service
 public class CampusService {
@@ -15,28 +18,31 @@ public class CampusService {
     @Autowired
     private CampusRepository campusRepository;
 
-    public List<Campus> getAllCampuss() {
-        return campusRepository.findAll();
+    public List<CampusBO> getAllCampuss() {
+        return BeanUtils.convertListTo(campusRepository.findAll(), CampusBO::new, true);
     }
 
-    public Campus getCampusById(Integer id) {
-        return campusRepository.findById(id).orElse(null);
+    public CampusBO getCampusById(Integer id) {
+        return BeanUtils.convertTo(campusRepository.findById(id).orElse(null), CampusBO::new, true);
     }
 
-    public Campus createCampus(Campus campus) {
-        return campusRepository.save(campus);
+    public CampusBO createCampus(CampusDTO campusDTO) {
+        Campus campus = BeanUtils.convertTo(campusDTO, Campus::new, true);
+        return BeanUtils.convertTo(campusRepository.save(campus), CampusBO::new, true);
     }
 
-    public Campus updateCampus(Integer id, Campus campus) {
+    public CampusBO updateCampus(Integer id, CampusDTO campusDTO) {
         Optional<Campus> optionalCampus = campusRepository.findById(id);
         if (optionalCampus.isPresent()) {
-            Campus existingCampus = optionalCampus.get();
-            existingCampus.setName(campus.getName());
-            existingCampus.setAddress(campus.getAddress());
-            existingCampus.setCity(campus.getCity());
-            existingCampus.setBuildings(campus.getBuildings());
+            Campus campus = optionalCampus.get();
+            // campus.setName(campusDTO.getName());
+            // campus.setAddress(campusDTO.getAddress());
+            // campus.setCity(campusDTO.getCity());
+            // campus.setCampuss(campusDTO.getCampuss());
+            campus = BeanUtils.convertTo(campusDTO, Campus::new, true);
+            campus.setId(id); 
             // set other fields you want to update
-            return campusRepository.save(existingCampus);
+            return BeanUtils.convertTo(campusRepository.save(campus), CampusBO::new, true);
         }
         throw new ResourceNotFoundException("Campus not found with id " + id);
     }

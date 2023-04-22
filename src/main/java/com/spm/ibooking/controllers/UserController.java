@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.PO.User;
+import com.spm.ibooking.models.BO.UserBO;
+import com.spm.ibooking.models.DTO.UserDTO;
 import com.spm.ibooking.services.UserService;
 
 @RestController
@@ -18,21 +19,27 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping
+    public ResponseEntity<List<UserBO>> getAllUsers() {
+        List<UserBO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer id) throws ResourceNotFoundException {
-        User user = userService.getUserById(id);
+    public ResponseEntity<UserBO> getUserById(@PathVariable Integer id) throws ResourceNotFoundException {
+        UserBO user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
+    public ResponseEntity<UserBO> createUser(@RequestBody UserDTO userDTO) {
+        UserBO createdUser = userService.createUser(userDTO);
         return ResponseEntity.created(URI.create("/api/users/" + createdUser.getId())).body(createdUser);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) throws ResourceNotFoundException {
-        User updatedUser = userService.updateUser(id, user);
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserBO> updateUser(@PathVariable Integer id, @RequestBody UserDTO userDTO) throws ResourceNotFoundException {
+        UserBO updatedUser = userService.updateUser(id, userDTO);
         return ResponseEntity.ok(updatedUser);
     }
 
@@ -42,10 +49,5 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
-    }
 }
 

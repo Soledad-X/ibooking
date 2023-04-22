@@ -11,9 +11,13 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class ReservationDTO {
 
-    private Long id;
+    private Integer id;
+
+    private Integer userId;
 
     private UserDTO user;
+
+    private Integer seatId;
 
     private SeatDTO seat;
 

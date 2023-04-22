@@ -2,7 +2,7 @@ package com.spm.ibooking.models.PO;
 
 import java.sql.Timestamp;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data

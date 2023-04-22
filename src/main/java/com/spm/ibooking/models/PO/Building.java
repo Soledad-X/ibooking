@@ -2,9 +2,7 @@ package com.spm.ibooking.models.PO;
 
 import java.sql.Timestamp;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 import lombok.*;
 
@@ -30,7 +28,6 @@ public class Building {
 
     @ManyToOne
     @JoinColumn(name = "campus_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnoreProperties(value = {"buildings"})
     private Campus campus;
 
     @Column(name = "created_at", insertable = false, updatable = false)

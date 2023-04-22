@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.PO.Admin;
+import com.spm.ibooking.models.BO.AdminBO;
+import com.spm.ibooking.models.DTO.AdminDTO;
 import com.spm.ibooking.services.AdminService;
 
 @RestController
@@ -19,21 +20,21 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Integer id) throws ResourceNotFoundException {
-        Admin admin = adminService.getAdminById(id);
-        return ResponseEntity.ok(admin);
+    public ResponseEntity<AdminBO> getAdminById(@PathVariable Integer id) throws ResourceNotFoundException {
+        AdminBO adminBO = adminService.getAdminById(id);
+        return ResponseEntity.ok(adminBO);
     }
 
     @PostMapping
-    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
-        Admin createdAdmin = adminService.createAdmin(admin);
+    public ResponseEntity<AdminBO> createAdmin(@RequestBody AdminDTO adminDTO) {
+        AdminBO createdAdmin = adminService.createAdmin(adminDTO);
         return ResponseEntity.created(URI.create("/api/admins/" + createdAdmin.getId())).body(createdAdmin);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Admin> updateAdmin(@PathVariable Integer id, @RequestBody Admin admin) throws ResourceNotFoundException {
-        Admin updatedAdmin = adminService.updateAdmin(id, admin);
-        return ResponseEntity.ok(updatedAdmin);
+    @PatchMapping("/{id}")
+    public ResponseEntity<AdminBO> updateAdmin(@PathVariable Integer id, @RequestBody AdminDTO adminDTO) throws ResourceNotFoundException {
+        AdminBO updateAdmin = adminService.updateAdmin(id, adminDTO);
+        return ResponseEntity.ok(updateAdmin);
     }
 
     @DeleteMapping("/{id}")
@@ -43,8 +44,8 @@ public class AdminController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Admin>> getAllAdmins() {
-        List<Admin> admins = adminService.getAllAdmins();
+    public ResponseEntity<List<AdminBO>> getAllAdmins() {
+        List<AdminBO> admins = adminService.getAllAdmins();
         return ResponseEntity.ok(admins);
     }
 }

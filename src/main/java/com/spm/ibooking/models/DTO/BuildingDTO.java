@@ -15,6 +15,8 @@ public class BuildingDTO {
     
     private Integer floor;
 
+    private Integer campusId;
+    
     private CampusDTO campus;
 
     // private Timestamp createdAt;

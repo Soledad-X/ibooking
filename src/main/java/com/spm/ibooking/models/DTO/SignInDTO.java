@@ -11,10 +11,12 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class SignInDTO {
 
-    private Long id;
+    private Integer id;
+
+    private Integer reservationId;
 
     private ReservationDTO reservation;
-
+    
     private SignInStatus status;
 
     private Timestamp startTime;

@@ -1,5 +1,7 @@
 package com.spm.ibooking.models.BO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.*;
 
 @Data
@@ -15,6 +17,7 @@ public class BuildingBO {
     
     private Integer floor;
 
+    @JsonIgnoreProperties(value = {"buildings"})
     private CampusBO campus;
 
     // private Timestamp createdAt;
