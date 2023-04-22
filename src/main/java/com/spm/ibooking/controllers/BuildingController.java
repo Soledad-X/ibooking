@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.BO.BuildingBO;
-import com.spm.ibooking.models.DTO.BuildingDTO;
+import com.spm.ibooking.models.bo.BuildingBo;
+import com.spm.ibooking.models.dto.BuildingDto;
 import com.spm.ibooking.services.BuildingService;
 
 @RestController
@@ -20,26 +20,26 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @GetMapping
-    public ResponseEntity<List<BuildingBO>> getAllBuildings() {
-        List<BuildingBO> buildings = buildingService.getAllBuildings();
+    public ResponseEntity<List<BuildingBo>> getAllBuildings() {
+        List<BuildingBo> buildings = buildingService.getAllBuildings();
         return ResponseEntity.ok(buildings);
     }
 
     @GetMapping("/{buildingId}")
-    public ResponseEntity<BuildingBO> getBuildingById(@PathVariable Integer buildingId) throws ResourceNotFoundException {
-        BuildingBO building = buildingService.getBuildingById(buildingId);
+    public ResponseEntity<BuildingBo> getBuildingById(@PathVariable Integer buildingId) throws ResourceNotFoundException {
+        BuildingBo building = buildingService.getBuildingById(buildingId);
         return ResponseEntity.ok(building);
     }
 
     @PostMapping
-    public ResponseEntity<BuildingBO> createBuilding(@RequestBody BuildingDTO buildingDTO) {
-        BuildingBO createdBuilding = buildingService.createBuilding(buildingDTO);
+    public ResponseEntity<BuildingBo> createBuilding(@RequestBody BuildingDto buildingDto) {
+        BuildingBo createdBuilding = buildingService.createBuilding(buildingDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBuilding);
     }
 
     @PatchMapping("/{buildingId}")
-    public ResponseEntity<BuildingBO> updateBuilding(@PathVariable Integer buildingId, @RequestBody BuildingDTO buildingDTO) throws ResourceNotFoundException {
-        BuildingBO updatedBuilding = buildingService.updateBuilding(buildingId, buildingDTO);
+    public ResponseEntity<BuildingBo> updateBuilding(@PathVariable Integer buildingId, @RequestBody BuildingDto buildingDto) throws ResourceNotFoundException {
+        BuildingBo updatedBuilding = buildingService.updateBuilding(buildingId, buildingDto);
         return ResponseEntity.ok(updatedBuilding);
     }
 

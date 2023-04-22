@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.PO;
+package com.spm.ibooking.models.po;
 
 import lombok.*;
 

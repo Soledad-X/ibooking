@@ -1,13 +1,13 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
 
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuildingBO {
+public class BuildingDto implements Serializable{
     
     private Integer id;
     
@@ -17,8 +17,9 @@ public class BuildingBO {
     
     private Integer floor;
 
-    @JsonIgnoreProperties(value = {"buildings"})
-    private CampusBO campus;
+    private Integer campusId;
+    
+    private CampusDto campus;
 
     // private Timestamp createdAt;
 

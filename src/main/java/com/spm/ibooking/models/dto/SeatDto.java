@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.DTO;
+package com.spm.ibooking.models.dto;
 
 import lombok.*;
 
@@ -10,13 +10,13 @@ import com.spm.ibooking.models.enums.SeatStatus;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SeatDTO implements Serializable{
+public class SeatDto implements Serializable{
 
     private Integer id;
 
     private Integer roomId;
     
-    private RoomDTO room;
+    private RoomDto room;
 
     private Boolean hasPower;
 

@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.PO;
+package com.spm.ibooking.models.po;
 
 import java.sql.Timestamp;
 
@@ -26,7 +26,7 @@ public class Building {
     @Column(name = "floor", nullable = false)
     private Integer floor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "campus_id", referencedColumnName = "id", nullable = false)
     private Campus campus;
 

@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.BO.CampusBO;
-import com.spm.ibooking.models.DTO.CampusDTO;
-import com.spm.ibooking.models.PO.Campus;
+import com.spm.ibooking.models.bo.BuildingBo;
+import com.spm.ibooking.models.bo.CampusBo;
+import com.spm.ibooking.models.dto.CampusDto;
+import com.spm.ibooking.models.po.Campus;
 import com.spm.ibooking.repositories.CampusRepository;
 import com.spm.ibooking.utils.BeanUtils;
 
@@ -18,31 +19,30 @@ public class CampusService {
     @Autowired
     private CampusRepository campusRepository;
 
-    public List<CampusBO> getAllCampuss() {
-        return BeanUtils.convertListTo(campusRepository.findAll(), CampusBO::new, true);
+    public List<CampusBo> getAllCampuss() {
+        return BeanUtils.convertListTo(campusRepository.findAll(), CampusBo::new, true,
+            (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingBo::new)));
     }
 
-    public CampusBO getCampusById(Integer id) {
-        return BeanUtils.convertTo(campusRepository.findById(id).orElse(null), CampusBO::new, true);
+    public CampusBo getCampusById(Integer id) {
+        return BeanUtils.convertTo(campusRepository.findById(id).orElse(null), CampusBo::new, true,
+        (s, t) -> t.setBuildings(BeanUtils.convertListTo(s.getBuildings(), BuildingBo::new)));
     }
 
-    public CampusBO createCampus(CampusDTO campusDTO) {
-        Campus campus = BeanUtils.convertTo(campusDTO, Campus::new, true);
-        return BeanUtils.convertTo(campusRepository.save(campus), CampusBO::new, true);
+    public CampusBo createCampus(CampusDto campusDto) {
+        Campus campus = BeanUtils.convertTo(campusDto, Campus::new, true);
+        return BeanUtils.convertTo(campusRepository.save(campus), CampusBo::new, true);
     }
 
-    public CampusBO updateCampus(Integer id, CampusDTO campusDTO) {
+    public CampusBo updateCampus(Integer id, CampusDto campusDto) {
         Optional<Campus> optionalCampus = campusRepository.findById(id);
         if (optionalCampus.isPresent()) {
             Campus campus = optionalCampus.get();
-            // campus.setName(campusDTO.getName());
-            // campus.setAddress(campusDTO.getAddress());
-            // campus.setCity(campusDTO.getCity());
-            // campus.setCampuss(campusDTO.getCampuss());
-            campus = BeanUtils.convertTo(campusDTO, Campus::new, true);
+            BeanUtils.copyTo(campusDto, campus, true);
+            campus = BeanUtils.convertTo(campusDto, Campus::new, true);
             campus.setId(id); 
             // set other fields you want to update
-            return BeanUtils.convertTo(campusRepository.save(campus), CampusBO::new, true);
+            return BeanUtils.convertTo(campusRepository.save(campus), CampusBo::new, true);
         }
         throw new ResourceNotFoundException("Campus not found with id " + id);
     }

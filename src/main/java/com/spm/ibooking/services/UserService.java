@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.BO.UserBO;
-import com.spm.ibooking.models.DTO.UserDTO;
-import com.spm.ibooking.models.PO.User;
+import com.spm.ibooking.models.bo.UserBo;
+import com.spm.ibooking.models.dto.UserDto;
+import com.spm.ibooking.models.po.User;
 import com.spm.ibooking.repositories.UserRepository;
 import com.spm.ibooking.utils.BeanUtils;
 
@@ -18,20 +18,20 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserBO> getAllUsers() {
-        return BeanUtils.convertListTo(userRepository.findAll(), UserBO::new, true);
+    public List<UserBo> getAllUsers() {
+        return BeanUtils.convertListTo(userRepository.findAll(), UserBo::new, true);
     }
 
-    public UserBO getUserById(Integer id) {
-        return BeanUtils.convertTo(userRepository.findById(id).orElse(null), UserBO::new, true);
+    public UserBo getUserById(Integer id) {
+        return BeanUtils.convertTo(userRepository.findById(id).orElse(null), UserBo::new, true);
     }
 
-    public UserBO createUser(UserDTO userDTO) {
-        User user = BeanUtils.convertTo(userDTO, User::new, true);
-        return BeanUtils.convertTo(user, UserBO::new, true);
+    public UserBo createUser(UserDto userDto) {
+        User user = BeanUtils.convertTo(userDto, User::new, true);
+        return BeanUtils.convertTo(user, UserBo::new, true);
     }
 
-    public UserBO updateUser(Integer id, UserDTO userDTO) {
+    public UserBo updateUser(Integer id, UserDto userDto) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -39,8 +39,8 @@ public class UserService {
             // existingUser.setPassword(user.getPassword());
             // existingUser.setEmail(user.getEmail());
             // existingUser.setPhone(user.getPhone());
-            user = BeanUtils.convertTo(userDTO, User::new, true);
-            return BeanUtils.convertTo(userRepository.save(user), UserBO::new, true);
+            user = BeanUtils.convertTo(userDto, User::new, true);
+            return BeanUtils.convertTo(userRepository.save(user), UserBo::new, true);
         }
         throw new ResourceNotFoundException("User not found with id " + id);
     }

@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.DTO;
+package com.spm.ibooking.models.dto;
 
 import lombok.*;
 
@@ -10,17 +10,17 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDTO implements Serializable {
+public class ReservationDto implements Serializable {
 
     private Integer id;
 
     private Integer userId;
 
-    private UserDTO user;
+    private UserDto user;
 
     private Integer seatId;
 
-    private SeatDTO seat;
+    private SeatDto seat;
 
     private Timestamp startTime;
 

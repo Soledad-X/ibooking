@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.bo;
 
 import lombok.*;
 
@@ -9,11 +9,11 @@ import com.spm.ibooking.models.enums.SeatStatus;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SeatBO {
+public class SeatBo {
 
     private Integer id;
 
-    private RoomBO room;
+    private RoomBo room;
 
     private Boolean hasPower;
 

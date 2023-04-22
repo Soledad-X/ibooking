@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.PO;
+package com.spm.ibooking.models.po;
 
 import lombok.*;
 
@@ -37,9 +37,5 @@ public class Seat {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private Timestamp updatedAt;
 
-    @PreUpdate
-    protected void onUpdate() {
-        statusUpdatedAt = new Timestamp(System.currentTimeMillis());
-    }
 }
 

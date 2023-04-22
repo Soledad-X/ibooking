@@ -1,17 +1,17 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.bo;
 
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomBO {
+public class RoomBo {
 
     private Long id;
 
     private String name;
 
-    private BuildingBO building;
+    private BuildingBo building;
 
     private Integer floor;
 

@@ -1,27 +1,27 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.bo;
 
 import lombok.*;
 
-import com.spm.ibooking.models.enums.ReservationStatus;
+import com.spm.ibooking.models.enums.SignInStatus;
 
 import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationBO {
+public class SignInBo {
 
     private Long id;
 
-    private UserBO user;
+    private ReservationBo reservation;
 
-    private SeatBO seat;
+    private SignInStatus status;
 
     private Timestamp startTime;
 
-    private Timestamp endTime;
+    private Timestamp signInTime;
 
-    private ReservationStatus status;
+    private Timestamp signOutTime;
 
     private Timestamp statusUpdatedAt;
 

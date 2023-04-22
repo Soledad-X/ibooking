@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.bo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CampusBO {
+public class CampusBo {
     
     private Integer id;
 
@@ -24,15 +24,15 @@ public class CampusBO {
 
     // private Timestamp updatedAt;
     
-    @JsonIgnoreProperties(value = {"buildings"})
-    private List<BuildingBO> buildings = new ArrayList<>();
+    @JsonIgnoreProperties(value = {"campus"})
+    private List<BuildingBo> buildings = new ArrayList<>();
     
-    public void addBuilding(BuildingBO building) {
+    public void addBuilding(BuildingBo building) {
         buildings.add(building);
         building.setCampus(this);
     }
     
-    public void removeBuilding(BuildingBO building) {
+    public void removeBuilding(BuildingBo building) {
         buildings.remove(building);
         building.setCampus(null);
     }

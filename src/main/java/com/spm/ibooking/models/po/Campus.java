@@ -1,12 +1,10 @@
-package com.spm.ibooking.models.PO;
+package com.spm.ibooking.models.po;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
 
@@ -36,18 +34,8 @@ public class Campus {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private Timestamp updatedAt;
     
-    @OneToMany(mappedBy = "campus", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"campus"})
+    @OneToMany(mappedBy = "campus", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Building> buildings = new ArrayList<>();
     
-    public void addBuilding(Building building) {
-        buildings.add(building);
-        building.setCampus(this);
-    }
-    
-    public void removeBuilding(Building building) {
-        buildings.remove(building);
-        building.setCampus(null);
-    }
 }
 

@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.BO.UserBO;
-import com.spm.ibooking.models.DTO.UserDTO;
+import com.spm.ibooking.models.bo.UserBo;
+import com.spm.ibooking.models.dto.UserDto;
 import com.spm.ibooking.services.UserService;
 
 @RestController
@@ -20,26 +20,26 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserBO>> getAllUsers() {
-        List<UserBO> users = userService.getAllUsers();
+    public ResponseEntity<List<UserBo>> getAllUsers() {
+        List<UserBo> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserBO> getUserById(@PathVariable Integer id) throws ResourceNotFoundException {
-        UserBO user = userService.getUserById(id);
+    public ResponseEntity<UserBo> getUserById(@PathVariable Integer id) throws ResourceNotFoundException {
+        UserBo user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping
-    public ResponseEntity<UserBO> createUser(@RequestBody UserDTO userDTO) {
-        UserBO createdUser = userService.createUser(userDTO);
+    public ResponseEntity<UserBo> createUser(@RequestBody UserDto userDto) {
+        UserBo createdUser = userService.createUser(userDto);
         return ResponseEntity.created(URI.create("/api/users/" + createdUser.getId())).body(createdUser);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserBO> updateUser(@PathVariable Integer id, @RequestBody UserDTO userDTO) throws ResourceNotFoundException {
-        UserBO updatedUser = userService.updateUser(id, userDTO);
+    public ResponseEntity<UserBo> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto) throws ResourceNotFoundException {
+        UserBo updatedUser = userService.updateUser(id, userDto);
         return ResponseEntity.ok(updatedUser);
     }
 

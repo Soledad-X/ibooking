@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spm.ibooking.models.PO.Room;
+import com.spm.ibooking.models.po.Room;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
     Optional<Room> findByName(String name);

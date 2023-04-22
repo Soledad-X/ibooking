@@ -1,20 +1,23 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.dto;
 
 import lombok.*;
 
 import com.spm.ibooking.models.enums.SignInStatus;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInBO {
+public class SignInDto implements Serializable{
 
-    private Long id;
+    private Integer id;
 
-    private ReservationBO reservation;
+    private Integer reservationId;
 
+    private ReservationDto reservation;
+    
     private SignInStatus status;
 
     private Timestamp startTime;

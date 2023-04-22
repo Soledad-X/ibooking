@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.PO.Reservation;
+import com.spm.ibooking.models.po.Reservation;
 import com.spm.ibooking.repositories.ReservationRepository;
 
 @Service

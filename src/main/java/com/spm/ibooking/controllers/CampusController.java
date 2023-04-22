@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.BO.CampusBO;
-import com.spm.ibooking.models.DTO.CampusDTO;
+import com.spm.ibooking.models.bo.CampusBo;
+import com.spm.ibooking.models.dto.CampusDto;
 import com.spm.ibooking.services.CampusService;
 
 @RestController
@@ -20,26 +20,26 @@ public class CampusController {
     private CampusService campusService;
 
     @GetMapping
-    public ResponseEntity<List<CampusBO>> getAllCampuss() {
-        List<CampusBO> campuses = campusService.getAllCampuss();
+    public ResponseEntity<List<CampusBo>> getAllCampuss() {
+        List<CampusBo> campuses = campusService.getAllCampuss();
         return ResponseEntity.ok(campuses);
     }
 
     @GetMapping("/{campusId}")
-    public ResponseEntity<CampusBO> getCampusById(@PathVariable Integer campusId) throws ResourceNotFoundException {
-        CampusBO campus = campusService.getCampusById(campusId);
+    public ResponseEntity<CampusBo> getCampusById(@PathVariable Integer campusId) throws ResourceNotFoundException {
+        CampusBo campus = campusService.getCampusById(campusId);
         return ResponseEntity.ok(campus);
     }
 
     @PostMapping
-    public ResponseEntity<CampusBO> createCampus(@RequestBody CampusDTO campusDTO) {
-        CampusBO createdCampus = campusService.createCampus(campusDTO);
+    public ResponseEntity<CampusBo> createCampus(@RequestBody CampusDto campusDto) {
+        CampusBo createdCampus = campusService.createCampus(campusDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCampus);
     }
 
     @PatchMapping("/{campusId}")
-    public ResponseEntity<CampusBO> updateCampus(@PathVariable Integer campusId, @RequestBody CampusDTO campusDTO) throws ResourceNotFoundException {
-        CampusBO updatedCampus = campusService.updateCampus(campusId, campusDTO);
+    public ResponseEntity<CampusBo> updateCampus(@PathVariable Integer campusId, @RequestBody CampusDto campusDto) throws ResourceNotFoundException {
+        CampusBo updatedCampus = campusService.updateCampus(campusId, campusDto);
         return ResponseEntity.ok(updatedCampus);
     }
 

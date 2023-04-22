@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
-import com.spm.ibooking.models.PO.SignIn;
+import com.spm.ibooking.models.po.SignIn;
 import com.spm.ibooking.repositories.SignInRepository;
 
 @Service

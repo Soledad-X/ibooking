@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.DTO;
+package com.spm.ibooking.models.dto;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomDTO implements Serializable{
+public class RoomDto implements Serializable{
 
     private Integer id;
 
@@ -15,7 +15,7 @@ public class RoomDTO implements Serializable{
 
     private Integer buldingId;
 
-    private BuildingDTO building;
+    private BuildingDto building;
 
     private Integer floor;
 

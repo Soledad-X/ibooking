@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.DTO;
+package com.spm.ibooking.models.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CampusDTO implements Serializable{
+public class CampusDto implements Serializable{
     
     private Integer id;
 
@@ -23,7 +23,7 @@ public class CampusDTO implements Serializable{
 
     // private Timestamp updatedAt;
     
-    private List<BuildingDTO> buildings = new ArrayList<>();
+    private List<BuildingDto> buildings = new ArrayList<>();
     
 }
 

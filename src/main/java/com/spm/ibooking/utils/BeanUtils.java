@@ -34,41 +34,6 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
             callBack.callBack(source, target);
         }
     }
-    // public static <S, T> void copyNotNullProperties(S source, T target) {
-    //     copyNotNullProperties(source, target, null);
-    // }
-
-    // public static <S, T> void copyNotNullProperties(S source, T target, CallBack<S, T> callBack) {
-    //     copyProperties(source, target, getNullPropertyNames(source));
-
-    //     if (callBack != null) {
-    //         callBack.callBack(source, target);
-    //     }
-    // }
-
-
-
-    // public static <S, T> void listCopyNotNullProperties(List<S> sources, List<T> targets) {
-    //     copyNotNullProperties(sources, targets, null); 
-    // }
-
-    // public static <S, T> void listCopyNotNullProperties(List<S> sources, List<T> targets, CallBack<S, T> callBack) {
-    //     IntStream.range(0, Math.min(sources.size(), targets.size()))
-    //         .forEach(i -> {
-    //             S source = sources.get(i);
-    //             T target = targets.get(i);
-    //             copyNotNullProperties(source, target, callBack); 
-    //         });
-    // }
-
-    // public static <S, T> void listCopyProperties(List<S> sources, List<T> targets, CallBack<S, T> callBack) {
-    //     IntStream.range(0, Math.min(sources.size(), targets.size()))
-    //         .forEach(i -> {
-    //             S source = sources.get(i);
-    //             T target = targets.get(i);
-    //             copyProperties(source, target, callBack); 
-    //         });
-    // }
     
     public static <S, T> void copyTo(S source, T target) {
         CopyTo(source, target, null, null);

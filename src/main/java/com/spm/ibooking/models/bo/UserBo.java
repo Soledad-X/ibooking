@@ -1,15 +1,14 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.bo;
 
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class AdminBO {
+public class UserBo {
 
     private Integer id;
-    
+
     private String username;
 
     private String password;
@@ -21,4 +20,5 @@ public class AdminBO {
     // private Timestamp createdAt;
 
     // private Timestamp updatedAt;
+    
 }

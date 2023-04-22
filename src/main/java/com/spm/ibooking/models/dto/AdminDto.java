@@ -1,14 +1,16 @@
-package com.spm.ibooking.models.BO;
+package com.spm.ibooking.models.dto;
+
+import java.io.Serializable;
 
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBO {
+public class AdminDto implements Serializable {
 
     private Integer id;
-
+    
     private String username;
 
     private String password;
@@ -20,5 +22,4 @@ public class UserBO {
     // private Timestamp createdAt;
 
     // private Timestamp updatedAt;
-    
 }

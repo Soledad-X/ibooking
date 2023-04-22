@@ -1,17 +1,16 @@
-package com.spm.ibooking.models.PO;
+package com.spm.ibooking.models.po;
 
 import java.sql.Timestamp;
 
 import jakarta.persistence.*;
-
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "admins")
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
