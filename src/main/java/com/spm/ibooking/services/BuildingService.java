@@ -42,7 +42,7 @@ public class BuildingService {
         Optional<Building> optionalBuilding = buildingRepository.findById(id);
         if (optionalBuilding.isPresent()) {
             Building building = optionalBuilding.get();
-            BeanUtils.CopyTo(buildingDto, building, true, 
+            BeanUtils.copyTo(buildingDto, building, true, 
                 (s, t) -> t.setCampus(campusRepository.findById(s.getCampusId()).orElse(null)));
             return BeanUtils.convertTo(buildingRepository.save(building), BuildingDto::new, true,
                 (s, t) -> t.setCampus(BeanUtils.convertTo(s.getCampus(), CampusDto::new, true)));

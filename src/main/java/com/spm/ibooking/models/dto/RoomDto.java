@@ -2,7 +2,9 @@ package com.spm.ibooking.models.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.*;
 
@@ -16,8 +18,10 @@ public class RoomDto implements Serializable{
 
     private String name;
 
-    private Integer buldingId;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Integer buildingId;
 
+    @JsonIgnoreProperties(value = {"campus"})
     private BuildingDto building;
 
     private Integer floor;

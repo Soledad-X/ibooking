@@ -7,7 +7,7 @@ info:
     email: penglei.x.mao@gmail.com
   version: 1.0.0
 servers:
-  - url: http://10.177.44.64:8080/api/
+  - url: http://10.177.44.64/api/
 paths:
   /admin_login:
     post:

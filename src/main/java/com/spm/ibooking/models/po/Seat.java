@@ -16,19 +16,21 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private Room room;
 
+    @Column(name = "seat_number")
+    private Integer seat_number;
+
     @Column(name = "has_power")
     private Boolean hasPower;
-
+    
     // @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     private Integer status;
 
     @Column(name = "status_updated_at")
-    @Setter(AccessLevel.NONE)
     private Timestamp statusUpdatedAt;
 
     @Column(name = "created_at", insertable = false, updatable = false)

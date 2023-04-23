@@ -36,18 +36,18 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
     }
     
     public static <S, T> void copyTo(S source, T target) {
-        CopyTo(source, target, null, null);
+        copyTo(source, target, null, null);
     }
 
     public static <S, T> void copyTo(S source, T target, Boolean ignoreNull) {
-        CopyTo(source, target, ignoreNull, null);
+        copyTo(source, target, ignoreNull, null);
     }
 
     public static <S, T> void copyTo(S source, T target, CallBack<S, T> callBack) {
-        CopyTo(source, target, null, callBack);
+        copyTo(source, target, null, callBack);
     }
 
-    public static <S, T> void CopyTo(S source, T target, Boolean ignoreNull, CallBack<S, T> callBack) {
+    public static <S, T> void copyTo(S source, T target, Boolean ignoreNull, CallBack<S, T> callBack) {
         copyProperties(source, target, ignoreNull, callBack);
     }
 
