@@ -3,9 +3,10 @@ package com.spm.ibooking.models.dto;
 import lombok.*;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spm.ibooking.models.enums.SeatStatus;
 
 @Data
@@ -16,15 +17,19 @@ public class SeatDto implements Serializable{
 
     private Integer id;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer roomId;
     
+    @JsonIgnoreProperties(value = {"buildings"})
     private RoomDto room;
+
+    private Integer seatNumber;
 
     private Boolean hasPower;
 
     private SeatStatus status;
 
-    private Timestamp statusUpdatedAt;
+    // private Timestamp statusUpdatedAt;
 
     // private Timestamp createdAt;
 

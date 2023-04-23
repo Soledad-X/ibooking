@@ -18,6 +18,7 @@ public class BuildingService {
 
     @Autowired
     private BuildingRepository buildingRepository;
+    
     @Autowired
     private CampusRepository campusRepository;
     

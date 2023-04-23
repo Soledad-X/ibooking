@@ -6,40 +6,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 import com.spm.ibooking.exceptions.ResourceNotFoundException;
+import com.spm.ibooking.models.dto.RoomDto;
+import com.spm.ibooking.models.dto.SeatDto;
 import com.spm.ibooking.models.po.Seat;
+import com.spm.ibooking.repositories.RoomRepository;
 import com.spm.ibooking.repositories.SeatRepository;
+import com.spm.ibooking.utils.BeanUtils;
 
 @Service
 public class SeatService {
 
     @Autowired
     private SeatRepository seatRepository;
+    
+    @Autowired
+    private RoomRepository roomRepository;
 
-    public Seat getSeatById(Integer id) {
-        return seatRepository.findById(id).orElse(null);
+    public List<SeatDto> getAll() {
+        return BeanUtils.convertListTo(seatRepository.findAll(), SeatDto::new, true,
+            (s, t) -> t.setRoom(BeanUtils.convertTo(s.getRoom(), RoomDto::new, true)));
     }
 
-    public List<Seat> getAllSeats() {
-        return seatRepository.findAll();
+    public SeatDto getById(Integer id) {
+        return BeanUtils.convertTo(seatRepository.findById(id).orElse(null), SeatDto::new, true,
+            (s, t) -> t.setRoom(BeanUtils.convertTo(s.getRoom(), RoomDto::new, true)));
     }
 
-    public Seat createSeat(Seat seat) {
-        return seatRepository.save(seat);
+
+    public SeatDto create(SeatDto seatDto) {
+        Seat seat = BeanUtils.convertTo(seatDto, Seat::new, true,
+            (s, t) -> t.setRoom(roomRepository.findById(s.getRoomId()).orElse(null)));        
+        System.out.println(seat.getStatus());    
+        return BeanUtils.convertTo(seatRepository.save(seat), SeatDto::new, true,
+            (s, t) -> t.setRoom((BeanUtils.convertTo(s.getRoom(), RoomDto::new, true))));
     }
 
-    public Seat updateSeat(Integer id, Seat seat) {
+    public SeatDto update(Integer id, SeatDto seatDto) {
         Optional<Seat> optionalSeat = seatRepository.findById(id);
         if (optionalSeat.isPresent()) {
-            Seat existingSeat = optionalSeat.get();
-            existingSeat.setRoom(seat.getRoom());
-            existingSeat.setHasPower(seat.getHasPower());
-            existingSeat.setStatus(seat.getStatus());
-            return seatRepository.save(existingSeat);
+            Seat seat = optionalSeat.get();
+            BeanUtils.copyTo(seatDto, seat, true, 
+                (s, t) -> t.setRoom(roomRepository.findById(s.getRoomId()).orElse(null)));
+            return BeanUtils.convertTo(seatRepository.save(seat), SeatDto::new, true,
+                (s, t) -> t.setRoom(BeanUtils.convertTo(s.getRoom(), RoomDto::new, true)));
         }
         throw new ResourceNotFoundException("Seat not found with id " + id);
     }
 
-    public void deleteSeat(Integer id) {
+    public void delete(Integer id) {
         Optional<Seat> optionalSeat = seatRepository.findById(id);
         if (optionalSeat.isPresent()) {
             seatRepository.deleteById(id);

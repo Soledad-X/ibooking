@@ -1,6 +1,8 @@
 package com.spm.ibooking.models.po;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +27,9 @@ public class Room {
 
     @Column(name = "floor", nullable = false)
     private Integer floor;
+    
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seats = new ArrayList<>();
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private Timestamp createdAt;

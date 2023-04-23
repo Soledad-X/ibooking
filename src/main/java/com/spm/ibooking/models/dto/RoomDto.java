@@ -1,6 +1,8 @@
 package com.spm.ibooking.models.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,6 +27,9 @@ public class RoomDto implements Serializable{
     private BuildingDto building;
 
     private Integer floor;
+
+    @JsonIgnoreProperties(value = {"room"})
+    private List<SeatDto> seats = new ArrayList<>();
 
     // private Timestamp createdAt;
 
