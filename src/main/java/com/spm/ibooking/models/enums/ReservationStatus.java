@@ -3,7 +3,7 @@ package com.spm.ibooking.models.enums;
 public enum ReservationStatus {
     CONFIRMED("确定"),
     CANCELED("取消"),
-    WAITING("等待");
+    PENDING("等待");
 
     private final String name;
 

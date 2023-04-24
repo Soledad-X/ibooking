@@ -20,7 +20,7 @@ public class SeatDto implements Serializable{
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer roomId;
     
-    @JsonIgnoreProperties(value = {"buildings"})
+    @JsonIgnoreProperties(value = {"buildings", "seats"})
     private RoomDto room;
 
     private Integer seatNumber;

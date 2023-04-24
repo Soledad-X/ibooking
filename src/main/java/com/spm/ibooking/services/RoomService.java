@@ -12,7 +12,6 @@ import com.spm.ibooking.models.dto.SeatDto;
 import com.spm.ibooking.models.po.Room;
 import com.spm.ibooking.repositories.BuildingRepository;
 import com.spm.ibooking.repositories.RoomRepository;
-import com.spm.ibooking.repositories.SeatRepository;
 import com.spm.ibooking.utils.BeanUtils;
 
 @Service
@@ -23,9 +22,6 @@ public class RoomService {
 
     @Autowired
     private BuildingRepository buildingRepository;
-
-    @Autowired
-    private SeatRepository seatRepository;
 
     public List<RoomDto> getAll() {
         return BeanUtils.convertListTo(roomRepository.findAll(), RoomDto::new, true,
@@ -49,7 +45,7 @@ public class RoomService {
         return BeanUtils.convertTo(roomRepository.save(room), RoomDto::new, true,
             (s, t) -> {
                 t.setBuilding(BeanUtils.convertTo(s.getBuilding(), BuildingDto::new, true));
-                t.setSeats(BeanUtils.convertListTo(seatRepository.findByRoomId(s.getFloor()), SeatDto::new, true));
+                t.setSeats(BeanUtils.convertListTo(s.getSeats(), SeatDto::new, true));
             });
     }
 
@@ -62,7 +58,7 @@ public class RoomService {
             return BeanUtils.convertTo(roomRepository.save(room), RoomDto::new, true,
                 (s, t) -> {
                     t.setBuilding(BeanUtils.convertTo(s.getBuilding(), BuildingDto::new, true));
-                    t.setSeats(BeanUtils.convertListTo(seatRepository.findByRoomId(s.getFloor()), SeatDto::new, true));
+                    t.setSeats(BeanUtils.convertListTo(s.getSeats(), SeatDto::new, true));
                 });
         }
         throw new ResourceNotFoundException("Room not found with id " + id);
