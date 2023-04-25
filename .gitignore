@@ -1,4 +1,7 @@
 HELP.md
+README.md
+Dockerfile
+ibooking.sql
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
