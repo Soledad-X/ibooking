@@ -27,6 +27,11 @@ public class SeatService {
             (s, t) -> t.setRoom(BeanUtils.convertTo(s.getRoom(), RoomDto::new, true)));
     }
 
+    public List<SeatDto> getByRoomId(Integer roomId) {
+        return BeanUtils.convertListTo(seatRepository.findByRoomId(roomId), SeatDto::new, true,
+            (s, t) -> t.setRoom(BeanUtils.convertTo(s.getRoom(), RoomDto::new, true)));
+    }
+
     public SeatDto getById(Integer id) {
         return BeanUtils.convertTo(seatRepository.findById(id).orElse(null), SeatDto::new, true,
             (s, t) -> t.setRoom(BeanUtils.convertTo(s.getRoom(), RoomDto::new, true)));

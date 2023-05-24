@@ -23,6 +23,13 @@ public class SeatController {
         return seatService.getAll();
     }
 
+    // @GetMapping("/")
+    // @ResponseStatus(HttpStatus.OK)
+    // @ResponseBody
+    // public List<SeatDto> getByRoomId(@RequestParam(value = "roomId", required = false) Integer roomId) {
+    //     return seatService.getByRoomId(roomId);
+    // }
+
     @GetMapping("/{seatId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
