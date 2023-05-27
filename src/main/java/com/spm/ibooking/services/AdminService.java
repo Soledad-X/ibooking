@@ -48,5 +48,19 @@ public class AdminService {
             throw new ResourceNotFoundException("Admin not found with id " + id);
         }
     }
+
+    public AdminDto validate(AdminDto adminDto) {
+        Admin admin = null;
+        if (adminDto.getUsername() != null)
+            admin = adminRepository.findByUsername(adminDto.getUsername()).orElse(null);
+        else if(adminDto.getEmail() != null)
+            admin = adminRepository.findByEmail(adminDto.getEmail()).orElse(null);
+        else
+            admin = adminRepository.findByPhone(adminDto.getPhone()).orElse(null);
+        if (admin != null && adminDto.getPassword().equals(admin.getPassword()))
+            return BeanUtils.convertTo(admin, AdminDto::new, true);
+        else
+            return null;
+    }
 }
 

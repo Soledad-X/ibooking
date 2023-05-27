@@ -48,5 +48,19 @@ public class UserService {
             throw new ResourceNotFoundException("User not found with id " + id);
         }
     }
+
+    public UserDto validate(UserDto userDto) {
+        User user = null;
+        if (userDto.getUsername() != null)
+            user = userRepository.findByUsername(userDto.getUsername()).orElse(null);
+        else if(userDto.getEmail() != null)
+            user = userRepository.findByEmail(userDto.getEmail()).orElse(null);
+        else
+            user = userRepository.findByPhone(userDto.getPhone()).orElse(null);
+        if (user != null && userDto.getPassword().equals(user.getPassword()))
+            return BeanUtils.convertTo(user, UserDto::new, true);
+        else
+            return null;
+    }
 }
 
