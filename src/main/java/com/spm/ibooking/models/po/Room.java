@@ -1,8 +1,12 @@
 package com.spm.ibooking.models.po;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,8 +36,12 @@ public class Room {
     private List<Seat> seats = new ArrayList<>();
 
     @Column(name = "created_at", insertable = false, updatable = false)
-    private Timestamp createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdAt;
 
     @Column(name = "updated_at", insertable = false, updatable = false)
-    private Timestamp updatedAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updatedAt;
 }

@@ -31,8 +31,8 @@ public class RoomDto implements Serializable{
     @JsonIgnoreProperties(value = {"room"})
     private List<SeatDto> seats = new ArrayList<>();
 
-    // private Timestamp createdAt;
+    // private Date createdAt;
 
-    // private Timestamp updatedAt;
+    // private Date updatedAt;
 
 }

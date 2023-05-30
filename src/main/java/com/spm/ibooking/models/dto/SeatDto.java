@@ -29,11 +29,11 @@ public class SeatDto implements Serializable{
 
     private SeatStatus status;
 
-    // private Timestamp statusUpdatedAt;
+    // private Date statusUpdatedAt;
 
-    // private Timestamp createdAt;
+    // private Date createdAt;
 
-    // private Timestamp updatedAt;
+    // private Date updatedAt;
     
 }
 

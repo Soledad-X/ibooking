@@ -4,7 +4,11 @@ import lombok.*;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Data
 @NoArgsConstructor
@@ -25,18 +29,30 @@ public class SignIn {
     private Integer status;
 
     @Column(nullable = false, updatable = false)
-    private Timestamp startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
 
-    private Timestamp signInTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date signInTime;
 
-    private Timestamp signOutTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date signOutTime;
 
     @Column(nullable = false, updatable = false)
-    private Timestamp statusUpdatedAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date statusUpdatedAt;
 
     @Column(name = "created_at", insertable = false, updatable = false)
-    private Timestamp createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdAt;
 
     @Column(name = "updated_at", insertable = false, updatable = false)
-    private Timestamp updatedAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updatedAt;
 }

@@ -4,8 +4,11 @@ import lombok.*;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spm.ibooking.models.enums.ReservationStatus;
 
 @Data
@@ -28,21 +31,31 @@ public class Reservation {
     private Seat seat;
 
     @Column(name = "start_time", nullable = false)
-    private Timestamp startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
 
     @Column(name = "end_time", nullable = false)
-    private Timestamp endTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ReservationStatus status;
 
     @Column(name = "status_updated_at", insertable = false, updatable = false)
-    private Timestamp statusUpdatedAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date statusUpdatedAt;
 
     @Column(name = "created_at", insertable = false, updatable = false)
-    private Timestamp createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdAt;
 
     @Column(name = "updated_at", insertable = false, updatable = false)
-    private Timestamp updatedAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updatedAt;
 }

@@ -28,9 +28,9 @@ public class BuildingDto implements Serializable{
     @JsonIgnoreProperties(value = {"buildings"})
     private CampusDto campus;
 
-    // private Timestamp createdAt;
+    // private Date createdAt;
 
-    // private Timestamp updatedAt;
+    // private Date updatedAt;
     
 }
 

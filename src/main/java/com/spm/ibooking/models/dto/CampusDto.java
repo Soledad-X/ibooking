@@ -23,9 +23,9 @@ public class CampusDto implements Serializable{
 
     private String city;
 
-    // private Timestamp createdAt;
+    // private Date createdAt;
 
-    // private Timestamp updatedAt;
+    // private Date updatedAt;
 
     @JsonIgnoreProperties(value = {"campus"})
     private List<BuildingDto> buildings = new ArrayList<>();

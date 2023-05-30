@@ -2,11 +2,14 @@ package com.spm.ibooking.models.dto;
 
 import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spm.ibooking.models.enums.SignInStatus;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @NoArgsConstructor
@@ -22,16 +25,24 @@ public class SignInDto implements Serializable{
     
     private SignInStatus status;
 
-    private Timestamp startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
 
-    private Timestamp signInTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date signInTime;
 
-    private Timestamp signOutTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date signOutTime;
 
-    private Timestamp statusUpdatedAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date statusUpdatedAt;
 
-    // private Timestamp createdAt;
+    // private Date createdAt;
 
-    // private Timestamp updatedAt;
+    // private Date updatedAt;
 
 }

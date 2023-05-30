@@ -2,12 +2,15 @@ package com.spm.ibooking.models.dto;
 
 import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spm.ibooking.models.enums.ReservationStatus;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @NoArgsConstructor
@@ -27,16 +30,20 @@ public class ReservationDto implements Serializable {
 
     private SeatDto seat;
 
-    private Timestamp startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
 
-    private Timestamp endTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endTime;
 
     private ReservationStatus status;
 
-    // private Timestamp statusUpdatedAt;
+    // private Date statusUpdatedAt;
 
-    // private Timestamp createdAt;
+    // private Date createdAt;
 
-    // private Timestamp updatedAt;
+    // private Date updatedAt;
 
 }

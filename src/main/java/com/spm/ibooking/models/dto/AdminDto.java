@@ -24,7 +24,7 @@ public class AdminDto implements Serializable {
 
     private String phone;
 
-    // private Timestamp createdAt;
+    // private Date createdAt;
 
-    // private Timestamp updatedAt;
+    // private Date updatedAt;
 }
