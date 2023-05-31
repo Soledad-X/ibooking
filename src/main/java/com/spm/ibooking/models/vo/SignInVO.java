@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.dto;
+package com.spm.ibooking.models.vo;
 
 import lombok.*;
 
@@ -15,13 +15,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SignInDto implements Serializable{
+public class SignInVO implements Serializable{
 
     private Integer id;
 
     private Integer reservationId;
 
-    private ReservationDto reservation;
+    private ReservationVO reservation;
     
     private SignInStatus status;
 

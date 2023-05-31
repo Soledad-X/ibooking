@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.dto;
+package com.spm.ibooking.models.vo;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AdminDto implements Serializable {
+public class AdminVO implements Serializable {
 
     private Integer id;
     

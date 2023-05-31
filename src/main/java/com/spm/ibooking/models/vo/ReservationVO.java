@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.dto;
+package com.spm.ibooking.models.vo;
 
 import lombok.*;
 
@@ -16,19 +16,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReservationDto implements Serializable {
+public class ReservationVO implements Serializable {
 
     private Integer id;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer userId;
 
-    private UserDto user;
+    private UserVO user;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer seatId;
 
-    private SeatDto seat;
+    private SeatVO seat;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

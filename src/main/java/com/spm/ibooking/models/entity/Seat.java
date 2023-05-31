@@ -1,39 +1,44 @@
-package com.spm.ibooking.models.po;
+package com.spm.ibooking.models.entity;
+
+import lombok.*;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.spm.ibooking.models.enums.SeatStatus;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "rooms")
-public class Room {
-
+@Table(name = "seats")
+public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "building_id", referencedColumnName = "id", nullable = false)
-    private Building building;
+    @JoinColumn(name = "room_id")
+    private Room room;
 
-    @Column(name = "floor", nullable = false)
-    private Integer floor;
-    
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Seat> seats = new ArrayList<>();
+    @Column(name = "seat_number", nullable = false)
+    private Integer seatNumber;
+
+    @Column(name = "has_power", nullable = false)
+    private Boolean hasPower;
+  
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private SeatStatus status;
+
+    @Column(name = "status_updated_at", insertable = false, updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date statusUpdatedAt;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -44,4 +49,6 @@ public class Room {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedAt;
+
 }
+

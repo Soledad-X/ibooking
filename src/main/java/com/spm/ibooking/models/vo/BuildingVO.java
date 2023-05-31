@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.dto;
+package com.spm.ibooking.models.vo;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BuildingDto implements Serializable{
+public class BuildingVO implements Serializable{
     
     private Integer id;
     
@@ -26,7 +26,7 @@ public class BuildingDto implements Serializable{
     private Integer campusId;
     
     @JsonIgnoreProperties(value = {"buildings"})
-    private CampusDto campus;
+    private CampusVO campus;
 
     // private Date createdAt;
 

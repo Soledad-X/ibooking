@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.dto;
+package com.spm.ibooking.models.vo;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto implements Serializable{
+public class UserVO implements Serializable{
 
     private Integer id;
 
@@ -23,9 +23,4 @@ public class UserDto implements Serializable{
     private String email;
 
     private String phone;
-
-    // private Date createdAt;
-
-    // private Date updatedAt;
-    
 }

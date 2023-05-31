@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.po;
+package com.spm.ibooking.models.entity;
 
 import java.util.Date;
 
@@ -7,15 +7,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
-
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "admins")
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

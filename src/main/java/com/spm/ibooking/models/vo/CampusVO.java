@@ -1,4 +1,4 @@
-package com.spm.ibooking.models.dto;
+package com.spm.ibooking.models.vo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CampusDto implements Serializable{
+public class CampusVO implements Serializable{
     
     private Integer id;
 
@@ -28,7 +28,7 @@ public class CampusDto implements Serializable{
     // private Date updatedAt;
 
     @JsonIgnoreProperties(value = {"campus"})
-    private List<BuildingDto> buildings = new ArrayList<>();
+    private List<BuildingVO> buildings = new ArrayList<>();
     
 }
 
