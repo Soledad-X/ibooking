@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spm.ibooking.models.dto.AdminDto;
-import com.spm.ibooking.models.dto.UserDto;
+import com.spm.ibooking.models.vo.AdminVO;
+import com.spm.ibooking.models.vo.UserVO;
 import com.spm.ibooking.services.AdminService;
 import com.spm.ibooking.services.UserService;
 
@@ -27,21 +27,21 @@ public class AuthenticationController {
     @PostMapping("/login")
     @ResponseStatus(value =  HttpStatus.CREATED)
     @ResponseBody
-    public UserDto login(@RequestBody UserDto userDto) {
-        return userService.validate(userDto);
+    public String login(@RequestBody UserVO userVO) {
+        return userService.validate(userVO);
     }
 
     @PostMapping("/admin_login")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public AdminDto adminLogin(@RequestBody AdminDto adminDto) {
-        return adminService.validate(adminDto);
+    public String adminLogin(@RequestBody AdminVO adminVO) {
+        return adminService.validate(adminVO);
     }
 
     @PostMapping("/register")
     @ResponseStatus(value =  HttpStatus.CREATED)
     @ResponseBody
-    public UserDto register(@RequestBody UserDto userDto) {
-        return userService.create(userDto);
+    public String register(@RequestBody UserVO userVO) {
+        return userService.create(userVO);
     }
 }

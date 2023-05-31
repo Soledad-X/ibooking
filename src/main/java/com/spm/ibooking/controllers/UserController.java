@@ -1,12 +1,9 @@
 package com.spm.ibooking.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.spm.ibooking.models.dto.UserDto;
+import com.spm.ibooking.models.vo.UserVO;
 import com.spm.ibooking.services.UserService;
 
 @RestController
@@ -17,37 +14,28 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<UserDto> getAll() {
+    public String getAll() {
         return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public UserDto getById(@PathVariable Integer id) {
+
+    public String getById(@PathVariable Integer id) {
         return userService.getById(id);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public UserDto create(@RequestBody UserDto userDto) {
-        return userService.create(userDto);
+    public String create(@RequestBody UserVO userVO) {
+        return userService.create(userVO);
     }
 
     @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public UserDto update(@PathVariable Integer id, @RequestBody UserDto userDto) {
-        return userService.update(id, userDto);
+    public String update(@PathVariable Integer id, @RequestBody UserVO userVO) {
+        return userService.update(id, userVO);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ResponseBody
-    public Void delete(@PathVariable Integer id) {
+    public String delete(@PathVariable Integer id) {
         userService.delete(id);
         return null;
     }
