@@ -19,7 +19,6 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-
     public String getById(@PathVariable Integer id) {
         return userService.getById(id);
     }

@@ -10,7 +10,7 @@ servers:
   - url: http://10.177.44.64/ibooking/
   - url: http://10.177.44.64/ibooking-dev/
 paths:
-  /admin_login:
+  /auth/admin_login:
     post:
       tags:
         - Authentication
@@ -24,7 +24,7 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'          
-  /login:
+  /auth/login:
     post:
       tags:
         - Authentication
@@ -38,7 +38,7 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'          
-  /register:
+  /auth/register:
     post:
       tags:
         - Authentication
