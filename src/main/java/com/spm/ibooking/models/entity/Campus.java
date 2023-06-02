@@ -1,49 +1,52 @@
 package com.spm.ibooking.models.entity;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.*;
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "campuses")
 public class Campus {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column(name = "name", unique = true, nullable = false)
+
+    @Column(unique = true, nullable = false)
     private String name;
     
-    @Column(name = "address", nullable = false)
+    @Column
     private String address;
     
-    @Column(name = "city", nullable = false)
+    @Column
     private String city;
     
-    @Column(name = "created_at", insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(insertable = false, updatable = false)
+    @JsonIgnore
     private Date createdAt;
 
-    @Column(name = "updated_at", insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(insertable = false, updatable = false)
+    @JsonIgnore
     private Date updatedAt;
     
-    @OneToMany(mappedBy = "campus", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Building> buildings = new ArrayList<>();
+    // @OneToMany(mappedBy = "campus", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<Building> buildings = new ArrayList<>();
     
 }
 

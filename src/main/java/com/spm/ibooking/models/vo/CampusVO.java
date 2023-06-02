@@ -1,18 +1,15 @@
 package com.spm.ibooking.models.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class CampusVO implements Serializable{
     
     private Integer id;
@@ -27,8 +24,8 @@ public class CampusVO implements Serializable{
 
     // private Date updatedAt;
 
-    @JsonIgnoreProperties(value = {"campus"})
-    private List<BuildingVO> buildings = new ArrayList<>();
+    // @JsonIgnoreProperties(value = {"campus"})
+    // private List<BuildingVO> buildings = new ArrayList<>();
     
 }
 

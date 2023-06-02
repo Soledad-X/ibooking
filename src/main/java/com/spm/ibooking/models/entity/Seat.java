@@ -1,15 +1,25 @@
 package com.spm.ibooking.models.entity;
 
-import lombok.*;
-
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spm.ibooking.models.enums.SeatStatus;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -25,30 +35,25 @@ public class Seat {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @Column(name = "seat_number", nullable = false)
+    @Column(nullable = false)
     private Integer seatNumber;
 
-    @Column(name = "has_power", nullable = false)
+    @Column(nullable = false)
     private Boolean hasPower;
   
-    @Column(name = "status")
+    @Column
     @Enumerated(EnumType.STRING)
     private SeatStatus status;
 
-    @Column(name = "status_updated_at", insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(insertable = false, updatable = false)
     private Date statusUpdatedAt;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(insertable = false, updatable = false)
+    @JsonIgnore
     private Date createdAt;
 
-    @Column(name = "updated_at", insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(insertable = false, updatable = false)
+    @JsonIgnore
     private Date updatedAt;
-
 }
 

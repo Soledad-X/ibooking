@@ -1,7 +1,6 @@
 package com.spm.ibooking.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spm.ibooking.models.vo.SeatVO;
@@ -24,8 +21,6 @@ public class SeatController {
     private SeatService seatService;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     public String getAll() {
         return seatService.getAll();
     }
@@ -38,31 +33,22 @@ public class SeatController {
     // }
 
     @GetMapping("/{seatId}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     public String getById(@PathVariable Integer seatId) {
         return seatService.getById(seatId);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
     public String create(@RequestBody SeatVO seatVO) {
         return seatService.create(seatVO);
     }
 
     @PatchMapping("/{seatId}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     public String update(@PathVariable Integer seatId, @RequestBody SeatVO seatVO) {
         return seatService.update(seatId, seatVO);
     }
 
     @DeleteMapping("/{seatId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ResponseBody
     public String delete(@PathVariable Integer seatId) {
-        seatService.delete(seatId);
-        return null;
+        return seatService.delete(seatId);
     }
 }

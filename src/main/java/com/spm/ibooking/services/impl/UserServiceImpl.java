@@ -10,7 +10,9 @@ import com.spm.ibooking.models.entity.User;
 import com.spm.ibooking.models.vo.UserVO;
 import com.spm.ibooking.repositories.UserRepository;
 import com.spm.ibooking.services.UserService;
-import com.spm.ibooking.utils.ResultUtil;
+import com.spm.ibooking.utils.ResponseStatus;
+import com.spm.ibooking.utils.ResponseUtil;
+import com.spm.ibooking.utils.UpdateUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,13 +22,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, userRepository.findAll());
     }
 
     @Override
     public String getById(Integer id) {
-        return ResultUtil.successWithData(userRepository.findById(id).orElse(null));
+
+        if(userRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, userRepository.findById(id));
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
 
     @Override
@@ -37,28 +42,37 @@ public class UserServiceImpl implements UserService {
             user = new User();
             BeanUtils.copyProperties(userVO, user);
             userRepository.save(user);
-            userVO.setPassword(null);
-            return ResultUtil.successWithData(userVO);
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, user);
         } else {
             if(userVO.getUsername().equals(user.getUsername()))
-                return ResultUtil.errorWithMessage("username 已存在");
+                return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The username already exists.");
             else if(userVO.getEmail().equals(user.getEmail()))
-                return ResultUtil.errorWithMessage("email 已存在");
+                return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The email already exists.");
             else
-                return ResultUtil.errorWithMessage("phone 已存在");
+                return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The phone already exists.");
         }
     }
 
     @Override
     public String update(Integer id, UserVO userVO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        
+        if(userRepository.existsById(id)) {
+            User user = userRepository.findById(id).get();
+            UpdateUtil.copyNullProperties(userVO, user);
+            userRepository.save(user);
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, user);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
 
     @Override
     public String delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        
+        if(userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return ResponseUtil.response(ResponseStatus.SUCCESS);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
 
     @Override
@@ -66,14 +80,13 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUsernameOrEmailOrPhone(userVO.getUsername(), userVO.getEmail(), userVO.getPhone()).orElse(null);
         if (user == null) {
-            return ResultUtil.errorWithMessage("用户不存在");
+            return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The username does not exist.");
         } else if (!user.getPassword().equals(userVO.getPassword())) {
-            return ResultUtil.errorWithMessage("账户或密码错误");
+            return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "Account or password error.");
         } else {
             String token = UUID.randomUUID().toString().replaceAll("-", "");
-            user.setPassword(null); // 过滤
             BeanUtils.copyProperties(user, userVO);
-            return ResultUtil.successWithDataAndMessage(userVO, token);
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, token);
         }
     }
 

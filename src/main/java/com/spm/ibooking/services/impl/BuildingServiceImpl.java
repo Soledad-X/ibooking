@@ -1,41 +1,68 @@
 package com.spm.ibooking.services.impl;
 
-import org.springframework.stereotype.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.spm.ibooking.models.entity.Building;
 import com.spm.ibooking.models.vo.BuildingVO;
+import com.spm.ibooking.repositories.BuildingRepository;
 import com.spm.ibooking.services.BuildingService;
+import com.spm.ibooking.utils.ResponseStatus;
+import com.spm.ibooking.utils.ResponseUtil;
+import com.spm.ibooking.utils.UpdateUtil;
 
 @Service
 public class BuildingServiceImpl implements BuildingService {
 
+    @Autowired
+    private BuildingRepository buildingRepository;
+
     @Override
     public String getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findAll());
     }
 
     @Override
     public String getById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+
+        if(buildingRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findById(id));
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
 
     @Override
     public String create(BuildingVO buildingVO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+
+        if(!buildingRepository.existsByName(buildingVO.getName())) {
+            Building building = new Building();
+            UpdateUtil.copyNullProperties(buildingVO, building);
+            buildingRepository.save(building);
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, building);
+        }
+        else return ResponseUtil.response(ResponseStatus.DUPLICATE_NAME);
     }
 
     @Override
     public String update(Integer id, BuildingVO buildingVO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
+        if(buildingRepository.existsById(id)) {
+            Building building = buildingRepository.findById(id).get();
+            UpdateUtil.copyNullProperties(buildingVO, building);
+            buildingRepository.save(building);
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, building);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
 
     @Override
     public String delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+
+        if(buildingRepository.existsById(id)) {
+            buildingRepository.deleteById(id);
+            return ResponseUtil.response(ResponseStatus.SUCCESS);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
 
 }

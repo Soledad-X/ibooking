@@ -8,4 +8,6 @@ import com.spm.ibooking.models.entity.Building;
 
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
     Optional<Building> findByName(String name);
+
+    boolean existsByName(String name);
 }

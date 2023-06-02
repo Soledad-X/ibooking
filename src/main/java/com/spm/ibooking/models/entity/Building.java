@@ -2,13 +2,18 @@ package com.spm.ibooking.models.entity;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.*;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -21,27 +26,25 @@ public class Building {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
     
-    @Column(name = "alias")
+    @Column
     private String alias;
     
-    @Column(name = "floor", nullable = false)
+    @Column
     private Integer floor;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "campus_id", referencedColumnName = "id", nullable = false)
-    private Campus campus;
+    // @ManyToOne(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "campus_id", referencedColumnName = "id", nullable = false)
+    // private Campus campus;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(insertable = false, updatable = false)
+    @JsonIgnore
     private Date createdAt;
 
-    @Column(name = "updated_at", insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(insertable = false, updatable = false)
+    @JsonIgnore
     private Date updatedAt;
     
 }

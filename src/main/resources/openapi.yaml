@@ -8,7 +8,7 @@ info:
   version: 1.0.0
 servers:
   - url: http://10.177.44.64/ibooking/
-  - url: http://10.177.44.64/ibooking-dev/
+  - url: http://10.177.44.64/ibooking-dev/api/
 paths:
   /auth/admin_login:
     post:
