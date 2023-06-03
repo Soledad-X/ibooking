@@ -13,4 +13,8 @@ public interface SeatService {
     public String update(Integer id, SeatVO seatVO);
 
     public String delete(Integer id);
+
+    public String getRoomById(Integer id);
+
+    public String getReservationsById(Integer id);
 }

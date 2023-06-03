@@ -30,6 +30,26 @@ public class RoomController {
         return roomService.getById(id);
     }
 
+    @GetMapping("/{id}/building")
+    public String getBuildingById(@PathVariable Integer id) {
+        return roomService.getBuildingById(id);
+    }
+
+    @GetMapping("/{id}/seats")
+    public String getSeatsById(@PathVariable Integer id) {
+        return roomService.getSeatsById(id);
+    }
+
+    @GetMapping("/name/{name}/building")
+    public String getBuildingByName(@PathVariable String name) {
+        return roomService.getBuildingByName(name);
+    }
+
+    @GetMapping("/name/{name}/seats")
+    public String getSeatsByName(@PathVariable String name) {
+        return roomService.getSeatsByName(name);
+    }
+
     @PostMapping
     public String create(@RequestBody RoomVO roomVO) {
         return roomService.create(roomVO);

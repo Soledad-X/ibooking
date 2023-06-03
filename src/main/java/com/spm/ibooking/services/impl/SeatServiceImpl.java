@@ -26,7 +26,7 @@ public class SeatServiceImpl implements SeatService{
     public String getById(Integer id) {
 
         if(seatRepository.existsById(id)) {
-            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, seatRepository.findById(id));
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, seatRepository.findById(id).get());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
@@ -58,6 +58,24 @@ public class SeatServiceImpl implements SeatService{
         if(seatRepository.existsById(id)) {
             seatRepository.deleteById(id);
             return ResponseUtil.response(ResponseStatus.SUCCESS);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getRoomById(Integer id) {
+        
+        if(seatRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, seatRepository.findById(id).get().getRoom());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getReservationsById(Integer id) {
+        
+        if(seatRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, seatRepository.findById(id).get().getReservations());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }

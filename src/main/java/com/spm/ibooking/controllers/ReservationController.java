@@ -30,6 +30,21 @@ public class ReservationController {
         return reservationService.getById(id);
     }
 
+    @GetMapping("/{id}/user")
+    public String getUserById(@PathVariable Integer id) {
+        return reservationService.getUserById(id);
+    }
+
+    @GetMapping("/{id}/seat")
+    public String getSeatById(@PathVariable Integer id) {
+        return reservationService.getSeatById(id);
+    }
+
+    @GetMapping("/{id}/signIn")
+    public String getSignInById(@PathVariable Integer id) {
+        return reservationService.getSignInById(id);
+    }
+
     @PostMapping
     public String create(@RequestBody ReservationVO reservationVO) {
         return reservationService.create(reservationVO);

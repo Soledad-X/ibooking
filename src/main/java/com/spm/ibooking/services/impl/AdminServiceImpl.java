@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService {
     public String getById(Integer id) {
         
         if(adminRepository.existsById(id)) {
-            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, adminRepository.findById(id));
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, adminRepository.findById(id).get());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }

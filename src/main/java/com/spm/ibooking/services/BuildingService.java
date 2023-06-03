@@ -13,4 +13,12 @@ public interface BuildingService {
     public String update(Integer id, BuildingVO buildingVO);
 
     public String delete(Integer id);
+
+    public String getRoomsById(Integer id);
+
+    public String getRoomsByName(String name);
+
+    public String getCampusById(Integer id);
+
+    public String getCampusByName(String name);
 }

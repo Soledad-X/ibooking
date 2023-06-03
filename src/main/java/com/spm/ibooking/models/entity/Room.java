@@ -1,10 +1,10 @@
 package com.spm.ibooking.models.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,23 +27,36 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "rooms")
-public class Room {
+public class Room implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(insertable = false, updatable = false)
     private Integer id;
 
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "building_id", referencedColumnName = "id", nullable = false)
-    private Building building;
-
     @Column(nullable = false)
     private Integer floor;
     
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    /**
+     * Each room must corresponds to one building(building_id).
+     * 
+     */
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "building_id")
+    @JsonIgnore
+    private Building building;
+
+    /**
+     * Each room has multiple seats.
+     * 
+     */
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room")
+    @JsonIgnore
     private List<Seat> seats = new ArrayList<>();
 
     @Column(insertable = false, updatable = false)

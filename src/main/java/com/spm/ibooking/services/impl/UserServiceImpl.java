@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public String getById(Integer id) {
 
         if(userRepository.existsById(id)) {
-            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, userRepository.findById(id));
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, userRepository.findById(id).get());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }

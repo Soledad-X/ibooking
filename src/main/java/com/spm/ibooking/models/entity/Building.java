@@ -1,12 +1,17 @@
 package com.spm.ibooking.models.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +28,8 @@ import lombok.NoArgsConstructor;
 public class Building {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(insertable = false, updatable = false)
     private Integer id;
     
     @Column(unique = true, nullable = false)
@@ -35,9 +41,22 @@ public class Building {
     @Column
     private Integer floor;
 
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "campus_id", referencedColumnName = "id", nullable = false)
-    // private Campus campus;
+    /**
+     * Each building must corresponds to one campus(campus_id).
+     * 
+     */
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "campus_id")
+    @JsonIgnore
+    private Campus campus;
+    
+    /**
+     * Each buldings has mutiple rooms.
+     * 
+     */
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "building")
+    @JsonIgnore
+    private List<Room> rooms;
 
     @Column(insertable = false, updatable = false)
     @JsonIgnore

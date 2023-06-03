@@ -4,14 +4,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spm.ibooking.models.enums.SignInStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,15 +27,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "sign_ins")
 public class SignIn {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(insertable = false, updatable = false)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "reservation_id", nullable = false)
-    private Reservation reservation;
-
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Integer status;
+    private SignInStatus status;
 
     @Column(nullable = false, updatable = false)
     private Date startTime;
@@ -41,8 +42,18 @@ public class SignIn {
 
     private Date signOutTime;
 
-    @Column(nullable = false, updatable = false)
+    @Column(insertable = false, updatable = false)
+    @JsonIgnore
     private Date statusUpdatedAt;
+
+    /**
+     * One signIn must corresponds to one reservation(reservation_id).
+     * 
+     */
+    @OneToOne(optional = false)
+    @JoinColumn(name = "reservation_id")
+    @JsonIgnore
+    private Reservation reservation;
 
     @Column(insertable = false, updatable = false)
     @JsonIgnore

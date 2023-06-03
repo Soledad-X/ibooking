@@ -13,4 +13,8 @@ public interface CampusService {
     public String update(Integer id, CampusVO campusVO);
 
     public String delete(Integer id);
+
+    public String getBuildingsById(Integer id);
+
+    public String getBuildingsByName(String name);
 }

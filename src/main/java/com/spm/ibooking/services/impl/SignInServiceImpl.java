@@ -26,7 +26,7 @@ public class SignInServiceImpl implements SignInService {
     public String getById(Integer id) {
 
         if(signInRepository.existsById(id)) {
-            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, signInRepository.findById(id));
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, signInRepository.findById(id).get());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
@@ -58,6 +58,15 @@ public class SignInServiceImpl implements SignInService {
         if(signInRepository.existsById(id)) {
             signInRepository.deleteById(id);
             return ResponseUtil.response(ResponseStatus.SUCCESS);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getReservationById(Integer id) {
+
+        if(signInRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, signInRepository.findById(id).get().getReservation());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }

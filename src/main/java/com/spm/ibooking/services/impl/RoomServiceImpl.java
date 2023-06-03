@@ -26,7 +26,7 @@ public class RoomServiceImpl implements RoomService {
     public String getById(Integer id) {
 
         if(roomRepository.existsById(id)) {
-            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, roomRepository.findById(id));
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, roomRepository.findById(id).get());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
@@ -61,6 +61,43 @@ public class RoomServiceImpl implements RoomService {
         if(roomRepository.existsById(id)) {
             roomRepository.deleteById(id);
             return ResponseUtil.response(ResponseStatus.SUCCESS);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getBuildingById(Integer id) {
+        
+        if(roomRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, roomRepository.findById(id).get().getBuilding());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getSeatsById(Integer id) {
+        
+        if(roomRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, roomRepository.findById(id).get().getSeats());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+
+    @Override
+    public String getBuildingByName(String name) {
+        
+        if(roomRepository.existsByName(name)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, roomRepository.findByName(name).get().getBuilding());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getSeatsByName(String name) {
+        
+        if(roomRepository.existsByName(name)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, roomRepository.findByName(name).get().getSeats());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }

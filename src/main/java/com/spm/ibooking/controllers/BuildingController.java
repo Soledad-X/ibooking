@@ -25,23 +25,43 @@ public class BuildingController {
         return buildingService.getAll();
     }
 
-    @GetMapping("/{buildingId}")
-    public String getById(@PathVariable Integer buildingId) {
-        return buildingService.getById(buildingId);
+    @GetMapping("/{id}")
+    public String getById(@PathVariable Integer id) {
+        return buildingService.getById(id);
     }
 
+    @GetMapping("/{id}/campus")
+    public String getCampusById(@PathVariable Integer id) {
+        return buildingService.getCampusById(id);
+    }
+
+    @GetMapping("/name/{name}/campus")
+    public String getCampusByName(@PathVariable String name) {
+        return buildingService.getCampusByName(name);
+    }
+
+    @GetMapping("/{id}/rooms")
+    public String getRoomsById(@PathVariable("id") Integer id) {
+        return buildingService.getRoomsById(id);
+    }
+
+    @GetMapping("/name/{name}/rooms")
+    public String getRoomsByName(@PathVariable String name) {
+        return buildingService.getRoomsByName(name);
+    }
+    
     @PostMapping
     public String create(@RequestBody BuildingVO buildingVO) {
         return buildingService.create(buildingVO);
     }
 
-    @PatchMapping("/{buildingId}")
-    public String update(@PathVariable Integer buildingId, @RequestBody BuildingVO buildingVO) {
-        return buildingService.update(buildingId, buildingVO);
+    @PatchMapping("/{id}")
+    public String update(@PathVariable Integer id, @RequestBody BuildingVO buildingVO) {
+        return buildingService.update(id, buildingVO);
     }
 
-    @DeleteMapping("/{buildingId}")
-    public String delete(@PathVariable Integer buildingId) {
-        return buildingService.delete(buildingId);
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Integer id) {
+        return buildingService.delete(id);
     }
 }

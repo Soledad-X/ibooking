@@ -14,4 +14,13 @@ public interface RoomService {
     public String update(Integer id, RoomVO roomVO);
 
     public String delete(Integer id);
+
+    public String getBuildingById(Integer id);
+
+    public String getSeatsById(Integer id);
+
+    public String getBuildingByName(String name);
+
+    public String getSeatsByName(String name);
+
 }

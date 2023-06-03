@@ -10,48 +10,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spm.ibooking.models.vo.SeatVO;
-import com.spm.ibooking.services.SeatService;
+import com.spm.ibooking.models.vo.SignInVO;
+import com.spm.ibooking.services.SignInService;
 
 @RestController
-@RequestMapping("/api/seats")
-public class SeatController {
+@RequestMapping(value = "/api/signIns")
+public class SignInController {
     
     @Autowired
-    private SeatService seatService;
+    private SignInService signInService;
 
     @GetMapping
     public String getAll() {
-        return seatService.getAll();
+        return signInService.getAll();
     }
 
     @GetMapping("/{id}")
     public String getById(@PathVariable Integer id) {
-        return seatService.getById(id);
+        return signInService.getById(id);
     }
 
-    @GetMapping("/{id}/room")
-    public String getRoomById(@PathVariable Integer id) {
-        return seatService.getRoomById(id);
-    }
-
-    @GetMapping("/{id}/reservations")
-    public String getReservationsById(@PathVariable Integer id) {
-        return seatService.getReservationsById(id);
+    @GetMapping("/{id}/reservation")
+    public String getReservationById(@PathVariable Integer id) {
+        return signInService.getReservationById(id);
     }
 
     @PostMapping
-    public String create(@RequestBody SeatVO seatVO) {
-        return seatService.create(seatVO);
+    public String create(@RequestBody SignInVO signInVO) {
+        return signInService.create(signInVO);
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable Integer id, @RequestBody SeatVO seatVO) {
-        return seatService.update(id, seatVO);
+    public String update(@PathVariable Integer id, @RequestBody SignInVO signInVO) {
+        return signInService.update(id, signInVO);
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Integer id) {
-        return seatService.delete(id);
+        return signInService.delete(id);
     }
 }

@@ -27,7 +27,7 @@ public class CampusServiceImpl implements CampusService {
     public String getById(Integer id) {
         
         if(campusRepository.existsById(id)) {
-            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, campusRepository.findById(id));
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, campusRepository.findById(id).get());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
@@ -62,6 +62,24 @@ public class CampusServiceImpl implements CampusService {
         if(campusRepository.existsById(id)) {
             campusRepository.deleteById(id);
             return ResponseUtil.response(ResponseStatus.SUCCESS);
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getBuildingsByName(String name) {
+        
+        if(campusRepository.existsByName(name)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, campusRepository.findByName(name).get().getBuildings());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getBuildingsById(Integer id) {
+        
+        if(campusRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, campusRepository.findById(id).get().getBuildings());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }

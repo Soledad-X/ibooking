@@ -5,13 +5,13 @@ public enum ReservationStatus {
     CANCELED("取消"),
     PENDING("等待");
 
-    private final String name;
+    private final String status;
 
-    ReservationStatus(String name) {
-        this.name = name;
+    ReservationStatus(String status) {
+        this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getstatus() {
+        return status;
     }
 }

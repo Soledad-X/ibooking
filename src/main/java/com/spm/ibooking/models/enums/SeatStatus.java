@@ -4,13 +4,13 @@ public enum SeatStatus {
     UNDER_MAINTENANCE("待维修"),
     AVAILABLE("可使用");
 
-    private final String displayName;
+    private final String status;
 
-    SeatStatus(String displayName) {
-        this.displayName = displayName;
+    SeatStatus(String status) {
+        this.status = status;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getstatus() {
+        return status;
     }
 }

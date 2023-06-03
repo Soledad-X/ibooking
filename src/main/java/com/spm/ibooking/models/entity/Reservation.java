@@ -2,16 +2,17 @@ package com.spm.ibooking.models.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,16 +30,9 @@ import lombok.NoArgsConstructor;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(insertable = false, updatable = false)
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "seat_id", referencedColumnName = "id")
-    private Seat seat;
 
     @Column(nullable = false)
     private Date startTime;
@@ -52,6 +46,32 @@ public class Reservation {
 
     @Column(insertable = false, updatable = false)
     private Date statusUpdatedAt;
+
+    /**
+     * Each reservation must corresponds to one user(user_id).
+     * 
+     */
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
+    /**
+     * Each reservation must corresponds to one seat(seat_id).
+     * 
+     */
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "seat_id")
+    @JsonIgnore
+    private Seat seat;
+
+    /**
+     * One reservation must corresponds to one signIn(signIn_id).
+     * 
+     */
+    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "reservation")
+    @JsonIgnore
+    private SignIn signIn;
 
     @Column(insertable = false, updatable = false)
     @JsonIgnore

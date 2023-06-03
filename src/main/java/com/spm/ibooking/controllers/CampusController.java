@@ -30,6 +30,16 @@ public class CampusController {
         return campusService.getById(campusId);
     }
 
+    @GetMapping("/{campus_id}/buildings")
+    public String getBuildingsById(@PathVariable("campus_id") Integer campusId) {
+        return campusService.getBuildingsById(campusId);
+    }
+
+    @GetMapping("/name/{campus_name}/buildings")
+    public String getBuildingsByName(@PathVariable("campus_name") String campusName) {
+        return campusService.getBuildingsByName(campusName);
+    }
+
     @PostMapping
     public String create(@RequestBody CampusVO campusVO) {        
         return campusService.create(campusVO);

@@ -26,7 +26,7 @@ public class BuildingServiceImpl implements BuildingService {
     public String getById(Integer id) {
 
         if(buildingRepository.existsById(id)) {
-            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findById(id));
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findById(id).get());
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
@@ -64,5 +64,40 @@ public class BuildingServiceImpl implements BuildingService {
         }
         else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
+    
+    @Override
+    public String getRoomsByName(String name) {
+        
+        if(buildingRepository.existsByName(name)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findByName(name).get().getRooms());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
 
+    @Override
+    public String getRoomsById(Integer id) {
+        
+        if(buildingRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findById(id).get().getRooms());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getCampusById(Integer id) {
+        
+        if(buildingRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findById(id).get().getCampus());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
+
+    @Override
+    public String getCampusByName(String name) {
+        
+        if(buildingRepository.existsByName(name)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, buildingRepository.findByName(name).get().getCampus());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
+    }
 }

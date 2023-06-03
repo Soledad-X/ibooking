@@ -12,4 +12,6 @@ public interface SignInService {
     public String update(Integer id, SignInVO signInVO);
 
     public String delete(Integer id);
+
+    public String getReservationById(Integer id);
 }
