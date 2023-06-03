@@ -131,11 +131,11 @@ paths:
         - Campus
       summary: Get an array of all buildings on the specified campus
       parameters:
-        - name: campus_name
+        - name: campus_id
           in: path
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         '400':
           $ref: '#/components/responses/400'
