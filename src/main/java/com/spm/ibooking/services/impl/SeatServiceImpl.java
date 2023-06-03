@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.spm.ibooking.models.entity.Seat;
 import com.spm.ibooking.models.vo.SeatVO;
+import com.spm.ibooking.repositories.RoomRepository;
 import com.spm.ibooking.repositories.SeatRepository;
 import com.spm.ibooking.services.SeatService;
 import com.spm.ibooking.utils.ResponseStatus;
@@ -16,6 +17,10 @@ public class SeatServiceImpl implements SeatService{
 
     @Autowired
     private SeatRepository seatRepository;
+
+    
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public String getAll() {
@@ -46,6 +51,11 @@ public class SeatServiceImpl implements SeatService{
         if(seatRepository.existsById(id)) {
             Seat seat = seatRepository.findById(id).get();
             UpdateUtil.copyNullProperties(seatVO, seat);
+
+            if (roomRepository.existsById(seatVO.getRoomId()))
+                seat.setRoom(roomRepository.findById(seatVO.getRoomId()).get());
+            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified room_id does not exist.");
+
             seatRepository.save(seat);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, seat);
         }

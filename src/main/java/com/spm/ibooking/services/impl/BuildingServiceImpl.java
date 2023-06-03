@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.spm.ibooking.models.entity.Building;
 import com.spm.ibooking.models.vo.BuildingVO;
 import com.spm.ibooking.repositories.BuildingRepository;
+import com.spm.ibooking.repositories.CampusRepository;
 import com.spm.ibooking.services.BuildingService;
 import com.spm.ibooking.utils.ResponseStatus;
 import com.spm.ibooking.utils.ResponseUtil;
@@ -16,6 +17,9 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Autowired
     private BuildingRepository buildingRepository;
+
+    @Autowired
+    private CampusRepository campusRepository;
 
     @Override
     public String getAll() {
@@ -37,6 +41,11 @@ public class BuildingServiceImpl implements BuildingService {
         if(!buildingRepository.existsByName(buildingVO.getName())) {
             Building building = new Building();
             UpdateUtil.copyNullProperties(buildingVO, building);
+            
+            if (campusRepository.existsById(buildingVO.getCampusId()))
+                building.setCampus(campusRepository.findById(buildingVO.getCampusId()).get());
+            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified campus_id does not exist.");
+
             buildingRepository.save(building);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, building);
         }

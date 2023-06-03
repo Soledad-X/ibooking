@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.spm.ibooking.models.entity.Room;
 import com.spm.ibooking.models.vo.RoomVO;
+import com.spm.ibooking.repositories.BuildingRepository;
 import com.spm.ibooking.repositories.RoomRepository;
 import com.spm.ibooking.services.RoomService;
 import com.spm.ibooking.utils.ResponseStatus;
@@ -16,6 +17,9 @@ public class RoomServiceImpl implements RoomService {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private BuildingRepository buildingRepository;
 
     @Override
     public String getAll() {
@@ -37,6 +41,11 @@ public class RoomServiceImpl implements RoomService {
         if(!roomRepository.existsByName(roomVO.getName())) {
             Room room = new Room();
             UpdateUtil.copyNullProperties(roomVO, room);
+
+            if (buildingRepository.existsById(roomVO.getBuildingId()))
+                room.setBuilding(buildingRepository.findById(roomVO.getBuildingId()).get());
+            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified building_id does not exist.");
+
             roomRepository.save(room);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, room);
         }

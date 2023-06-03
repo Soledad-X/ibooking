@@ -37,7 +37,7 @@ public class Campus implements Serializable {
     @Column(unique = true, nullable = false)
     private String name;
     
-    @Column
+    @Column(nullable = false)
     private String address;
     
     @Column
