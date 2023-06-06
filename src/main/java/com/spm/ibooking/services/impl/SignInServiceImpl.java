@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.spm.ibooking.models.entity.SignIn;
 import com.spm.ibooking.models.vo.SignInVO;
+import com.spm.ibooking.repositories.ReservationRepository;
 import com.spm.ibooking.repositories.SignInRepository;
 import com.spm.ibooking.services.SignInService;
 import com.spm.ibooking.utils.ResponseStatus;
@@ -16,6 +17,9 @@ public class SignInServiceImpl implements SignInService {
 
     @Autowired
     private SignInRepository signInRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Override
     public String getAll() {
@@ -36,6 +40,11 @@ public class SignInServiceImpl implements SignInService {
 
         SignIn signin = new SignIn();
         UpdateUtil.copyNullProperties(signinVO, signin);
+
+        if (signinVO.getReservationId() != null)
+            if (reservationRepository.existsById(signinVO.getReservationId()))
+                signin.setReservation(reservationRepository.findById(signinVO.getReservationId()).get());
+            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified reservation_id does not exist.");
         signInRepository.save(signin);
         return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, signin);
     }
@@ -46,6 +55,11 @@ public class SignInServiceImpl implements SignInService {
         if(signInRepository.existsById(id)) {
             SignIn signin = signInRepository.findById(id).get();
             UpdateUtil.copyNullProperties(signinVO, signin);
+            if (signinVO.getReservationId() != null)
+                if (reservationRepository.existsById(signinVO.getReservationId()))
+                    signin.setReservation(reservationRepository.findById(signinVO.getReservationId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified reservation_id does not exist.");
+        
             signInRepository.save(signin);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, signin);
         }

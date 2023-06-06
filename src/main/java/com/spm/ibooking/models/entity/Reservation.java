@@ -41,7 +41,7 @@ public class Reservation {
     private Date endTime;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private ReservationStatus status;
 
     @Column(insertable = false, updatable = false)

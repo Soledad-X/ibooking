@@ -41,6 +41,11 @@ public class SeatServiceImpl implements SeatService{
 
         Seat seat = new Seat();
         UpdateUtil.copyNullProperties(seatVO, seat);
+        if (seatVO.getRoomId() != null)
+        if(roomRepository.existsById(seatVO.getRoomId()))
+            seat.setRoom(roomRepository.findById(seatVO.getRoomId()).get());
+        else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified room_id does not exist.");
+    
         seatRepository.save(seat);
         return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, seat);
     }
@@ -51,11 +56,10 @@ public class SeatServiceImpl implements SeatService{
         if(seatRepository.existsById(id)) {
             Seat seat = seatRepository.findById(id).get();
             UpdateUtil.copyNullProperties(seatVO, seat);
-
-            if (roomRepository.existsById(seatVO.getRoomId()))
-                seat.setRoom(roomRepository.findById(seatVO.getRoomId()).get());
-            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified room_id does not exist.");
-
+            if (seatVO.getRoomId() != null)
+                if(roomRepository.existsById(seatVO.getRoomId()))
+                    seat.setRoom(roomRepository.findById(seatVO.getRoomId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified room_id does not exist.");
             seatRepository.save(seat);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, seat);
         }

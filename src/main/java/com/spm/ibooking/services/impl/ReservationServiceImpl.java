@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.spm.ibooking.models.entity.Reservation;
 import com.spm.ibooking.models.entity.SignIn;
+import com.spm.ibooking.models.enums.ReservationStatus;
 import com.spm.ibooking.models.enums.SignInStatus;
 import com.spm.ibooking.models.vo.ReservationVO;
 import com.spm.ibooking.repositories.ReservationRepository;
@@ -46,18 +47,20 @@ public class ReservationServiceImpl implements ReservationService{
 
         Reservation reservation = new Reservation();
         UpdateUtil.copyNullProperties(reservationVO, reservation);
-        if (userRepository.existsById(reservationVO.getUserId()))
-            reservation.setUser(userRepository.findById(reservationVO.getUserId()).get());
-        else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified user_id does not exist.");
-        
-        if (seatRepository.existsById(reservationVO.getSeatId()))
-            reservation.setSeat(seatRepository.findById(reservationVO.getSeatId()).get());
-        else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified seat_id does not exist.");
+        if (reservationVO.getUserId() != null)
+            if (userRepository.existsById(reservationVO.getUserId()))
+                reservation.setUser(userRepository.findById(reservationVO.getUserId()).get());
+            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified user_id does not exist.");
+        if (reservationVO.getSeatId() != null)
+            if (seatRepository.existsById(reservationVO.getSeatId()))
+                reservation.setSeat(seatRepository.findById(reservationVO.getSeatId()).get());
+            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified seat_id does not exist.");
 
         SignIn signIn = new SignIn();
         signIn.setReservation(reservation);
         signIn.setStartTime(reservation.getStartTime());
         signIn.setStatus(SignInStatus.PENDING);
+        reservation.setStatus(ReservationStatus.PENDING);
         reservation.setSignIn(signIn);
         reservationRepository.save(reservation);
         return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, reservation);
@@ -69,6 +72,16 @@ public class ReservationServiceImpl implements ReservationService{
         if(reservationRepository.existsById(id)) {
             Reservation reservation = reservationRepository.findById(id).get();
             UpdateUtil.copyNullProperties(reservationVO, reservation);
+            if (reservationVO.getUserId() != null)
+                if (userRepository.existsById(reservationVO.getUserId()))
+                    reservation.setUser(userRepository.findById(reservationVO.getUserId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified user_id does not exist.");
+            
+            if (reservationVO.getSeatId() != null)
+                if (seatRepository.existsById(reservationVO.getSeatId()))
+                    reservation.setSeat(seatRepository.findById(reservationVO.getSeatId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified seat_id does not exist.");
+
             reservationRepository.save(reservation);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, reservation);
         }

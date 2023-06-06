@@ -42,9 +42,10 @@ public class RoomServiceImpl implements RoomService {
             Room room = new Room();
             UpdateUtil.copyNullProperties(roomVO, room);
 
-            if (buildingRepository.existsById(roomVO.getBuildingId()))
-                room.setBuilding(buildingRepository.findById(roomVO.getBuildingId()).get());
-            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified building_id does not exist.");
+            if (roomVO.getBuildingId() != null)
+                if (buildingRepository.existsById(roomVO.getBuildingId()))
+                    room.setBuilding(buildingRepository.findById(roomVO.getBuildingId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified building_id does not exist.");
 
             roomRepository.save(room);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, room);
@@ -58,6 +59,11 @@ public class RoomServiceImpl implements RoomService {
         if(roomRepository.existsById(id)) {
             Room room = roomRepository.findById(id).get();
             UpdateUtil.copyNullProperties(roomVO, room);
+            if (roomVO.getBuildingId() != null)
+                if(buildingRepository.existsById(roomVO.getBuildingId()))
+                    room.setBuilding(buildingRepository.findById(roomVO.getBuildingId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified building_id does not exist.");
+            
             roomRepository.save(room);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, room);
         }

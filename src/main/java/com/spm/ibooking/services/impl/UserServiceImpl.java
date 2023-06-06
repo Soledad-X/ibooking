@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    
     @Override
     public String getAll() {
         return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, userRepository.findAll());
@@ -88,6 +88,15 @@ public class UserServiceImpl implements UserService {
             BeanUtils.copyProperties(user, userVO);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, token);
         }
+    }
+
+    @Override
+    public String getReservationsById(Integer id) {
+
+        if(userRepository.existsById(id)) {
+            return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, userRepository.findById(id).get().getReservations());
+        }
+        else return ResponseUtil.response(ResponseStatus.ENTITY_NOT_FOUND);
     }
 
 }

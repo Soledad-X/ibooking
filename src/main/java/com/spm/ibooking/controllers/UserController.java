@@ -30,6 +30,11 @@ public class UserController {
         return userService.getById(id);
     }
 
+    @GetMapping("/{id}/reservations")
+    public String getReservationsById(@PathVariable Integer id) {
+        return userService.getReservationsById(id);
+    }
+
     @PostMapping
     public String create(@RequestBody UserVO userVO) {
         return userService.create(userVO);

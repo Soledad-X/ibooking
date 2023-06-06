@@ -42,9 +42,10 @@ public class BuildingServiceImpl implements BuildingService {
             Building building = new Building();
             UpdateUtil.copyNullProperties(buildingVO, building);
             
-            if (campusRepository.existsById(buildingVO.getCampusId()))
-                building.setCampus(campusRepository.findById(buildingVO.getCampusId()).get());
-            else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified campus_id does not exist.");
+            if(buildingVO.getCampusId() != null)
+                if (campusRepository.existsById(buildingVO.getCampusId()))
+                    building.setCampus(campusRepository.findById(buildingVO.getCampusId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified campus_id does not exist.");
 
             buildingRepository.save(building);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, building);
@@ -58,6 +59,11 @@ public class BuildingServiceImpl implements BuildingService {
         if(buildingRepository.existsById(id)) {
             Building building = buildingRepository.findById(id).get();
             UpdateUtil.copyNullProperties(buildingVO, building);
+            if(buildingVO.getCampusId() != null)
+                if (campusRepository.existsById(buildingVO.getCampusId()))
+                    building.setCampus(campusRepository.findById(buildingVO.getCampusId()).get());
+                else return ResponseUtil.response(ResponseStatus.FAILED.getCode(), "The specified campus_id does not exist.");
+
             buildingRepository.save(building);
             return ResponseUtil.responseWithData(ResponseStatus.SUCCESS, building);
         }

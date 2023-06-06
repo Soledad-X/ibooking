@@ -16,4 +16,6 @@ public interface UserService {
 
     public String validate(UserVO userVO);
 
+    public String getReservationsById(Integer id);
+
 }

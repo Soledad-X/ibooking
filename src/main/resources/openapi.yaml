@@ -50,6 +50,22 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
+  /users/{user_id}/reservations:
+    get:
+      tags:
+        - User
+      summary: Get an array of all one's reservations
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'  
   /campuses:
     get:
       tags:
@@ -919,123 +935,121 @@ components:
         - password
     Campus:
       type: object
+      required:
+        - name
       properties:
-        id:
-          type: integer
-          format: int64
         name:
           type: string
           example: 江湾校区
+        address:
+          type: string
+          example: 上海市杨浦区淞沪路2005号
+        city:
+          type: string
+          example: 上海   
     Building:
       type: object
+      required:
+        - name
+        - campusId
       properties:
-        id:
-          type: integer
-          format: int64
         name:
           type: string
           example: 智华楼
         alias:
           type: string
           example: JB
-        campus:
-          $ref: '#/components/schemas/Campus'          
+        floor:
+          type: integer
+          example: 3
+        campusId:
+          type: integer
+          example: 1        
     Room:
       type: object
+      required:
+        - name
+        - buildingId
       properties:
-        id:
-          type: integer
-          format: int64
         name:
           type: string
           example: '101'
-        building:
-          $ref: '#/components/schemas/Building'
-        total_capacity:
+        buildingId:
           type: integer
-          format: int64
-          example: 50
-        power_socket_capacity:
-          type: integer
-          format: int64
-          example: 20
-        status:
-          type: string
-          enum:
-            - Open
-            - Closed
-            - Under maintenance
+          example: 1
     Seat:
       type: object
+      required:
+        - roomId
       properties:
-        id:
+        seatNumber:
           type: integer
-          format: int64
-        number:
-          type: integer
-          format: int64
+          description: 座位在房间中的编号
           example: 1
-        power_supply:
+        hasPower:
           type: boolean
+          description: 是否带电
           example: true
-        room:
-          $ref: '#/components/schemas/Room'
+        status:
+          type: string
+          example: AVAILABLE
+          enum:
+            - UNDER_MAINTENANCE
+            - AVAILABLE
+        roomId:
+          type: integer
+          example: 1
     Reservation:
       type: object
       properties:
-        id:
+        userId:
           type: integer
-          format: int64
-        user:
-          $ref: '#/components/schemas/User'
-        seat:
-          $ref: '#/components/schemas/Seat'
-        start_time:
+          example: 1
+        seatId:
+          type: integer
+          example: 1
+        startTime:
           type: string
           format: date-time
-        end_time:
+        endTime:
           type: string
           format: date-time
         status:
           type: string
+          example: post别传，patch可改
           enum:
-            - Confirmed
-            - Cancelled
-            - Pending
-        status_change_time:
-          type: string
-          format: date-time
+            - PENDING
+            - CANCELED
+            - CONFIRMED
     SignIn:
       type: object
       properties:
-        id:
+        reservationId:
           type: integer
-          format: int64
-        reservation:
-          $ref: '#/components/schemas/Reservation'
+          example: 1
         status:
           type: string
+          example: PENDING post别传，patch可改
           enum:
-            - Pending
-            - SignIn
-            - SignOut
-            - TimeOut
-        sign_in_start_time:
+            - PENDING
+            - SIGNED_IN
+            - SIGNED_OUT
+            - TIME_OUT
+        signInStartTime:
           type: string
+          example: post得传，patch可改
           format: date-time
-        sign_in_time:
+        signInTime:
           type: string
+          example: 签到时patch传
           format: date-time
-        sign_out_time:
+        signOutTime:
           type: string
+          example: 签退时patch传
           format: date-time
     User:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-          example: 001
         name:
           type: string
           example: penglei
@@ -1048,9 +1062,6 @@ components:
     Administrator:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
         name:
           type: string
         email:
